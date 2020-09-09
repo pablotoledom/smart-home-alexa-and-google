@@ -24,9 +24,9 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 
 Servidor con sistema operativo compatible con las siguientes versiones de software:
 
-NodeJs mínimo v10.16.3, recomendado v12.18.3
-NPM mínimo 6.11.3, recomendado 6.14.7
-MongoDB minimo 3.0.14, recomendado 3.6.8
+- NodeJs mínimo v10.16.3, recomendado v12.18.3
+- NPM mínimo 6.11.3, recomendado 6.14.7
+- MongoDB minimo 3.0.14, recomendado 3.6.8
 
 El servidor de producción debe ser accesible desde un dominio público con certificación SSL (puerto 443), si no no podrá ser accedido desde el Skill de Amazon o el Actions de Google.
 
