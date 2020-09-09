@@ -23,10 +23,10 @@ El servidor debe ser accesible desde un dominio público con certificación SSL 
 
 ### Instalación 🔧
 
-1) Definir la siguiente variable de entorno según sea el caso
+1) Definir la siguiente variable de entorno según sea el caso, si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
 
 export ENVIROMENT=IN_NETWORK
-export ENVIROMENT=IREMOTE
+export ENVIROMENT=REMOTE
 export ENVIROMENT=IPRODUCTION
 
 2) clonar el proyecto
@@ -63,11 +63,16 @@ Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar 
 
 5) Agregar los datos iniciales a su base de datos MongoDB
 
+Ejecute el script de base de datos inicial
 
+node example-data-mongo.js
 
+Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este pasó tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
+6) Ejecuta el servidor Web
 
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
+npm start
+
 
 ## Ejecutando las pruebas ⚙️
 
