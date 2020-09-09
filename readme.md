@@ -17,8 +17,6 @@ Algunas cosas que veremos son:
 
 Actualmente tengo este proyecto corriendo en un máquina Raspberry Pi 2 como servidor, y me ha dado excelentes resultados, su bajo consumo y silencio, hace que el hardware pase muy desapercibido. Adicionalmente estoy usando hardware compatible con ESPURNA para controlar los dispositivos por medio de ordenes en radiofrecuencia 433Mhz, y a futuro tengo pensado programar las órdenes para un control de infrarojos.
 
-Mira **Deployment** para conocer como desplegar el proyecto.
-
 
 ### Pre-requisitos 📋
 
@@ -33,37 +31,37 @@ El servidor de producción debe ser accesible desde un dominio público con cert
 
 ### Instalación 🔧
 
-1) Definir la siguiente variable de entorno según sea el caso, si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
+#### 1) Definir la siguiente variable de entorno según sea el caso, si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
 
 export ENVIROMENT=IN_NETWORK
 export ENVIROMENT=REMOTE
 export ENVIROMENT=IPRODUCTION
 
-2) clonar el proyecto
+#### 2) clonar el proyecto
 
 git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
 
-3) Instalar las dependencias en node_modules
+#### 3) Instalar las dependencias en node_modules
 
 npm install
 
 npm audit fix
 
-4) Agregar los datos de configuración
+#### 4) Agregar los datos de configuración
 
-4.1 Actualizar la cadena de conexión a la base de datos
+##### 4.1 Actualizar la cadena de conexión a la base de datos
 
 Abra el archivo "database-setup.js" que se encuentra en el directorio "connections".
 
 reemplace la cadena mongodb://user:password@localhost, por sus datos de conexión según los ambientes que tenga disponibles.
 
-4.2 Actualizar las rutas hacia los certificados SSL
+##### 4.2 Actualizar las rutas hacia los certificados SSL
 
 Abra el archivo "ssl-setup.js" que se encuentra en el directorio "connections".
 
 reemplace las rutas hacia los archivos privkey.pem, cert.pem, chain.pem, la ruta que viene por defecto es la usada en sistemas con Ubuntu Server.
 
-4.3 Agregar el ID y Clave Secreta para nuestro cliente web
+##### 4.3 Agregar el ID y Clave Secreta para nuestro cliente web
 
 Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 y deben ser agregados en la linea 98 del archivo my-login.js.
 
@@ -71,7 +69,7 @@ Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" 
 
 Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a esto 'Bearer bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
 
-5) Agregar los datos iniciales a su base de datos MongoDB
+#### 5) Agregar los datos iniciales a su base de datos MongoDB
 
 Ejecute el script de base de datos inicial
 
@@ -79,7 +77,7 @@ node example-data-mongo.js
 
 Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este pasó tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
-6) Ejecuta el servidor Web
+#### 6) Ejecuta el servidor Web
 
 npm start
 
@@ -105,12 +103,4 @@ Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md
 
 ## Expresiones de Gratitud 🎁
 
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
-
-
-
----
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
+Agradecimiento a Andrés Villanueva [Andrés Villanueva](https://github.com/Villanuevand) por la guía para construir el readme
