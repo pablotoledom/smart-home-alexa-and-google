@@ -75,7 +75,7 @@ Ejecute el script de base de datos inicial
 
 node example-data-mongo.js
 
-Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este pasó tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
+Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este paso tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
 #### 6) Ejecuta el servidor Web
 
