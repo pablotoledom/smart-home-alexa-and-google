@@ -73,7 +73,7 @@ Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar 
 
 Ejecute el script de base de datos inicial
 
-node example-data-mongo.js
+node ./example-data/example-data-mongo.js
 
 Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este paso tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
