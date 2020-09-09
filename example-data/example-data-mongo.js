@@ -1,3 +1,14 @@
+
+/**
+ * Configuration.
+ */
+
+var clientModel = require('../database/model/client'),
+	tokenModel = require('../database/model/token'),
+	userModel = require('../database/model/user');
+	hubModel = require('../database/model/hub');
+	deviceModel = require('../database/model/device');
+
 /**
  * Add example client and user to the database (for debug).
  */
