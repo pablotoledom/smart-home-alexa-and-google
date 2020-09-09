@@ -5,38 +5,67 @@ Utiliza una base de datos MongoDB para persistir los dispositivos agregados.
 
 ## Comenzando 🚀
 
-Este proyecto requiere del siguiente software instalado previamente
 
-NodeJs v10.16.3
-NPM 6.11.3
-MongoDB 
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 
 
 ### Pre-requisitos 📋
 
-_Que cosas necesitas para instalar el software y como instalarlas_
+Servidor con sistema operativo compatible con las siguientes versiones de software:
 
-```
-Da un ejemplo
-```
+NodeJs mínimo v10.16.3, recomendado v12.18.3
+NPM mínimo 6.11.3, recomendado 6.14.7
+MongoDB minimo 3.0.14, recomendado 
+
+El servidor debe ser accesible desde un dominio público con certificación SSL (puerto 443)
+
 
 ### Instalación 🔧
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+1) Definir la siguiente variable de entorno según sea el caso
 
-_Dí cómo será ese paso_
+export ENVIROMENT=IN_NETWORK
+export ENVIROMENT=IREMOTE
+export ENVIROMENT=IPRODUCTION
 
-```
-Da un ejemplo
-```
+2) clonar el proyecto
 
-_Y repite_
+git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
 
-```
-hasta finalizar
-```
+3) Instalar las dependencias en node_modules
+
+npm install
+
+npm audit fix
+
+4) Agregar los datos de configuración
+
+4.1 Actualizar la cadena de conexión a la base de datos
+
+Abra el archivo "database-setup.js" que se encuentra en el directorio "connections".
+
+reemplace la cadena mongodb://user:password@localhost, por sus datos de conexión según los ambientes que tenga disponibles.
+
+4.2 Actualizar las rutas hacia los certificados SSL
+
+Abra el archivo "ssl-setup.js" que se encuentra en el directorio "connections".
+
+reemplace las rutas hacia los archivos privkey.pem, cert.pem, chain.pem, la ruta que viene por defecto es la usada en sistemas con Ubuntu Server.
+
+4.3 Agregar el ID y Clave Secreta para nuestro cliente web
+
+Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 y deben ser agregados en la linea 98 del archivo my-login.js.
+
+Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" como su id y clave respectivamente, podría utilizar el siguiente sitio web  https://www.base64encode.org/ para encriptarlos en Base64. Debe usar el siguiente formato mySuperId:mySuperSecretKey resultando la siguiente cadena bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk= 
+
+Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a esto 'Bearer bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
+
+5) Agregar los datos iniciales a su base de datos MongoDB
+
+
+
+
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
 
