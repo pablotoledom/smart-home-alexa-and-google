@@ -1,0 +1,92 @@
+{
+  "name": "smart-home-advanced",
+  "version": "0.0.1",
+  "description": "All integration services on one proyect",
+  "keywords": [
+    "oauth2-server",
+    "oauth2",
+    "oauth",
+    "mongodb-storage",
+    "mongodb",
+    "grant",
+    "password",
+    "client-credentials",
+    "polymer 3",
+    "smarthome"
+  ],
+  "license": "MIT",
+  "author": "Pablo Toledo",
+  "contributors": [
+    {
+      "name": "Pedro Trujillo",
+      "email": "pedroetb@gmail.com"
+    },
+    {
+      "name": "Pablo Toledo",
+      "email": "pablotoledomoya@gmail.com"
+    }
+  ],
+  "main": "app.js",
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "start:onlyfront": "polymer serve",
+    "build": "polymer build",
+    "lint": "polymer lint",
+    "test": "polymer test",
+    "test:integration": "polymer build # test that psk builds without error with the CLI",
+    "clean": "rm -rf ./build/",
+    "create-firebase-config": "./node_modules/.bin/firebase setup:web > ./frontend/firebase-setup.js"
+  },
+  "dependencies": {
+    "@polymer/app-layout": "^3.0.1",
+    "@polymer/app-route": "^3.0.1",
+    "@polymer/iron-ajax": "^3.0.1",
+    "@polymer/iron-flex-layout": "^3.0.1",
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/iron-iconset-svg": "^3.0.1",
+    "@polymer/iron-list": "^3.0.1",
+    "@polymer/iron-media-query": "^3.0.1",
+    "@polymer/iron-pages": "^3.0.1",
+    "@polymer/iron-selector": "^3.0.1",
+    "@polymer/neon-animation": "^3.0.1",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-dialog": "^3.0.1",
+    "@polymer/paper-dropdown-menu": "^3.0.1",
+    "@polymer/paper-icon-button": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/paper-listbox": "^3.0.1",
+    "@polymer/paper-menu-button": "^3.0.1",
+    "@polymer/paper-radio-button": "^3.0.1",
+    "@polymer/paper-radio-group": "^3.0.1",
+    "@polymer/paper-slider": "^3.0.1",
+    "@polymer/paper-toast": "^3.0.1",
+    "@polymer/paper-toggle-button": "^3.0.1",
+    "@polymer/polymer": "^3.1.0",
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "actions-on-google": "^2.12.0",
+    "ask-sdk": "^2.9.0",
+    "axios": "^0.19.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "format-util": "^1.0.5",
+    "mongoose": "^5.7.5",
+    "oauth2-server": "^3.0.1",
+    "request": "^2.88.0",
+    "util-format-x": "^3.1.2",
+    "web-animations-js": "^2.3.2"
+  },
+  "devDependencies": {
+    "firebase-tools": "^6.0.0",
+    "polymer-cli": "^1.8.1",
+    "wct-browser-legacy": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=4.14.2"
+  }
+}

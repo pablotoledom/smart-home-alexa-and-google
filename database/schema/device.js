@@ -1,0 +1,22 @@
+module.exports = {
+    id: String,
+	username: String,
+    deviceId: String,
+    attributes: Object,
+    defaultNames: Array,
+    errorCode: String,
+    hwVersion: String,
+    localDeviceExecution: Boolean,
+    manufacturer: String, 
+    model: String,
+    name: String,
+    nicknames: Array,
+    roomHint: String,
+    states: Object,
+    swVersion: String,
+    traits: Array,
+    type: String,
+    willReportState: Boolean,
+    hubExecution: Boolean,
+    hubInformation: Object
+};
