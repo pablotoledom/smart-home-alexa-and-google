@@ -31,7 +31,9 @@ El servidor de producción debe ser accesible desde un dominio público con cert
 
 ### Instalación 🔧
 
-#### 1) Definir la siguiente variable de entorno según sea el caso, si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
+#### 1) Definir la siguiente variable de entorno según sea el caso
+
+Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
 
 export ENVIROMENT=IN_NETWORK  
 export ENVIROMENT=REMOTE  
@@ -99,7 +101,7 @@ Pablo Toledo
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md](LICENSE.md) para detalles
 
 ## Expresiones de Gratitud 🎁
 
