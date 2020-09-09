@@ -1,11 +1,21 @@
 # smart-home
 
-Proyecto para control de dispositivos inteligentes por medio de Google Home y Amazon Alexa. 
-Utiliza una base de datos MongoDB para persistir los dispositivos agregados.
+Proyecto para control de dispositivos inteligentes por medio de Google Home y Amazon Alexa. La idea es centralizar el estado e información de los dispositivos de tu hogar en una sola aplicación, de forma que al agregar un dispositivo nuevo este aparezca tanto en Google Home y Amazon Alexa, asi mismo las ordenes y cambios de estado puedan ser enviadas desde ambos asistentes, y que al mismo tiempo cada asistente muestre el estado actualizado del dispositivo independiente de quien envió la orden.
 
 ## Comenzando 🚀
 
+Este proyecto es grande, usa una mezacla de muchas tecnologías, aunque he intentado de utilizar el mismo lenguaje (JavaScript) para todo el proyecto, no deja de ser un desafío que toma mucho tiempo de implementar, ha día de hoy calculo que levantar el servidor podría tomar 2 días.
 
+Algunas cosas que veremos son:
+
+- Servidor de autenticación Oauth 2
+- Servidor web por medio de NodeJS Express
+- Servicio web certificado con SSL mediante Letsencrypt.org
+- Frontend en Polymer 3
+- Backend en NodeJS
+- Persistencia de datos en MongoDB
+
+Actualmente tengo este proyecto corriendo en un máquina Raspberry Pi 2 como servidor, y me ha dado excelentes resultados, su bajo consumo y silencio, hace que el hardware pase muy desapercibido. Adicionalmente estoy usando hardware compatible con ESPURNA para controlar los dispositivos por medio de ordenes en radiofrecuencia 433Mhz, y a futuro tengo pensado programar las órdenes para un control de infrarojos.
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 
@@ -16,9 +26,9 @@ Servidor con sistema operativo compatible con las siguientes versiones de softwa
 
 NodeJs mínimo v10.16.3, recomendado v12.18.3
 NPM mínimo 6.11.3, recomendado 6.14.7
-MongoDB minimo 3.0.14, recomendado 
+MongoDB minimo 3.0.14, recomendado 3.6.8
 
-El servidor debe ser accesible desde un dominio público con certificación SSL (puerto 443)
+El servidor de producción debe ser accesible desde un dominio público con certificación SSL (puerto 443), si no no podrá ser accedido desde el Skill de Amazon o el Actions de Google.
 
 
 ### Instalación 🔧
@@ -76,67 +86,18 @@ npm start
 
 ## Ejecutando las pruebas ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-Agregar variable de entorno 
-export ENVIROMENT=IN_NETWORK
-export ENVIROMENT=IREMOTE
-export ENVIROMENT=IPRODUCTION
+El sitio web se levanta en el puerto 8080, asi que para visulizar el frontend solo debe ir a la siguiente url desde su navegador web:
 
 http://localhost:8080/
 
-npm run build
-
-npm start
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
 
 ## Despliegue 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
 
-## Construido con 🛠️
+## Autor
 
-_Menciona las herramientas que utilizaste para crear tu proyecto_
+Pablo Toledo
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
-
-## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
 
 ## Licencia 📄
 
