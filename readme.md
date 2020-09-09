@@ -105,4 +105,6 @@ Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md](LICENSE.
 
 ## Expresiones de Gratitud 🎁
 
-Agradecimiento a Andrés Villanueva [Andrés Villanueva](https://github.com/Villanuevand) por la guía para construir el readme
+- Agradecimiento a [Pedro Trujillo](https://github.com/pedroetb) por los ejemplos para montar un servidor Oauth 2 con NodeJS y MongoDB
+- Agradecimiento a la comunidad de Google Actions por el proyecto web en Polymer 3 sobre Firebase que he usado como base para administrar los dispositivos [Actions On Google](https://github.com/actions-on-google)
+- Agradecimiento a [Andrés Villanueva](https://github.com/Villanuevand) por la guía para construir el readme

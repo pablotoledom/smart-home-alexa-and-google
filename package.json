@@ -1,5 +1,5 @@
 {
-  "name": "smart-home-advanced",
+  "name": "smart-home-alexa-and-google",
   "version": "0.0.1",
   "description": "All integration services on one proyect",
   "keywords": [
@@ -18,12 +18,7 @@
   "author": "Pablo Toledo",
   "contributors": [
     {
-      "name": "Pedro Trujillo",
-      "email": "pedroetb@gmail.com"
-    },
-    {
       "name": "Pablo Toledo",
-      "email": "pablotoledomoya@gmail.com"
     }
   ],
   "main": "app.js",
