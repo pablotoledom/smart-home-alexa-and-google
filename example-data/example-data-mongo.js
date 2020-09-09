@@ -3,6 +3,20 @@
  * Configuration.
  */
 
+var mongoose = require('mongoose');
+const mongoUri = require('../connections/database-setup');
+
+mongoose.connect(mongoUri, {
+	useCreateIndex: true,
+	useNewUrlParser: true
+}, function (err, res) {
+
+	if (err) {
+		return console.error('Error connecting to "%s":', mongoUri, err);
+	}
+	console.log('Connected successfully to "%s"', mongoUri);
+});
+
 var clientModel = require('../database/model/client'),
 	tokenModel = require('../database/model/token'),
 	userModel = require('../database/model/user'),
