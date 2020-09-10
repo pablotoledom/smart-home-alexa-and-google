@@ -45,6 +45,8 @@ git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
 
 #### 3) Instalar las dependencias en node_modules
 
+cd smart-home-alexa-and-google
+
 npm install
 
 npm audit fix
