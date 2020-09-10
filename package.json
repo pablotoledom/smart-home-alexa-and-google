@@ -12,7 +12,7 @@
     "alexa-skills",
     "lambda"
   ],
-  "license": "MIT",
+  "license": "Apache License, Versión 2.0",
   "author": "Pablo Toledo",
   "contributors": [
     {
