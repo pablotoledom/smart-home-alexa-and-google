@@ -211,11 +211,11 @@ class MyDevices extends PolymerElement {
         super.ready();
         this.isReady = true;
         // Initialize Cloud Firestore through Firebase
-        this.db = firebase.firestore();
+        // this.db = firebase.firestore();
         // Disable deprecated features
-        this.db.settings({
-            timestampsInSnapshots: true,
-        });
+        // this.db.settings({
+        //     timestampsInSnapshots: true,
+        // });
 
         var body = document.querySelector('body');
         dom(body).appendChild(this.$.modals);

@@ -1,18 +1,16 @@
 {
   "name": "smart-home-alexa-and-google",
   "version": "0.0.1",
-  "description": "All integration services on one proyect",
+  "description": "Alexa and Google Smarthome asistants integration services on one proyect",
   "keywords": [
-    "oauth2-server",
     "oauth2",
-    "oauth",
-    "mongodb-storage",
     "mongodb",
-    "grant",
-    "password",
-    "client-credentials",
+    "mongodb",
     "polymer 3",
-    "smarthome"
+    "smarthome",
+    "google-actions",
+    "alexa-skills",
+    "lambda"
   ],
   "license": "MIT",
   "author": "Pablo Toledo",
@@ -36,8 +34,8 @@
     "create-firebase-config": "./node_modules/.bin/firebase setup:web > ./frontend/firebase-setup.js"
   },
   "dependencies": {
-    "@polymer/app-layout": "^3.0.1",
-    "@polymer/app-route": "^3.0.1",
+    "@polymer/app-layout": "^3.1.0",
+    "@polymer/app-route": "^3.0.2",
     "@polymer/iron-ajax": "^3.0.1",
     "@polymer/iron-flex-layout": "^3.0.1",
     "@polymer/iron-icon": "^3.0.1",
@@ -76,7 +74,7 @@
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
-    "firebase-tools": "^6.0.0",
+    "firebase-tools": "^8.10.0",
     "polymer-cli": "^1.8.1",
     "wct-browser-legacy": "^1.0.0"
   },

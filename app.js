@@ -1,4 +1,4 @@
-var express = require('express'),
+const express = require('express'),
 	bodyParser = require('body-parser'),
 	OAuth2Server = require('oauth2-server'),
 	model = require('./database/model.js'),
@@ -14,7 +14,7 @@ var express = require('express'),
 	https = require('https')
 	fs = require('fs');
 
-var app = express();
+const app = express();
 
 
 // ********* SSL CERTIFICATES *********
