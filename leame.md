@@ -44,11 +44,17 @@ export ENVIROMENT=REMOTE
 ```console
 export ENVIROMENT=IPRODUCTION  
 ```  
-#### 2) clonar el proyecto
+#### 2) clonar el proyecto desde Github
 
+Ejecuta el siguiente comando en tu consola
+
+```console
 git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
+```
 
 #### 3) Instalar las dependencias en node_modules
+
+Ejecuta los siguientes comandos en tu consola
 
 ```console
 cd smart-home-alexa-and-google
