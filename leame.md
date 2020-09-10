@@ -35,21 +35,29 @@ El servidor de producción debe ser accesible desde un dominio público con cert
 
 Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
 
+```console
 export ENVIROMENT=IN_NETWORK  
+```
+```console
 export ENVIROMENT=REMOTE  
+```
+```console
 export ENVIROMENT=IPRODUCTION  
-
+```  
 #### 2) clonar el proyecto
 
 git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
 
 #### 3) Instalar las dependencias en node_modules
 
+```console
 cd smart-home-alexa-and-google
 
 npm install
 
 npm audit fix
+
+```
 
 #### 4) Agregar los datos de configuración
 
@@ -77,14 +85,17 @@ Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar 
 
 Ejecute el script de base de datos inicial
 
+```console
 node ./example-data/example-data-mongo.js
+```
 
 Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este paso tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
 #### 6) Ejecuta el servidor Web
 
+```console
 npm start
-
+```
 
 ## Ejecutando las pruebas ⚙️
 
