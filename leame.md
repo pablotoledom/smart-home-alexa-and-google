@@ -131,9 +131,15 @@ myUserName
 smarthome
 ```
 
+Si todo ha salido bien, deberías poder ver la pantalla de login y al iniciar la sesíon debería verse un dispositivo de prueba.
+
+![alt text](https://1.bp.blogspot.com/-AO_FmG7hNWU/X1vCapafzbI/AAAAAAAA668/iDmELl1AlpQsLFme1nOJVkE81emxpCUEwCLcBGAsYHQ/s1580/Sin%2Bnombre.jpg)
+
 ## Despliegue 📦
 
 ### 1) Crear un Actions de Google asistant y enlazar a tu servidor
+
+
 
 ### 2) Crear un Skill de Amazon Alexa y enlazar a tu servidor  
 
@@ -152,4 +158,5 @@ Este proyecto está bajo la Licencia Apache, Versión 2.0 - mira el archivo [LIC
 
 - Agradecimiento a [Pedro Trujillo](https://github.com/pedroetb) por los ejemplos para montar un servidor Oauth 2 con NodeJS y MongoDB
 - Agradecimiento a la comunidad de Google Actions por el proyecto web en Polymer 3 sobre Firebase que he usado como base para administrar los dispositivos [Actions On Google](https://github.com/actions-on-google)
+- Agradecimiento a la comunidad de Alexa por los ejemplos disponibles [Alexa](https://github.com/alexa/)
 - Agradecimiento a [Andrés Villanueva](https://github.com/Villanuevand) por la guía para construir el readme
