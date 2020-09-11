@@ -31,20 +31,7 @@ El servidor de producción debe ser accesible desde un dominio público con cert
 
 ### Instalación 🔧
 
-#### 1) Definir la siguiente variable de entorno según sea el caso
-
-Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
-
-```console
-export ENVIROMENT=IN_NETWORK  
-```
-```console
-export ENVIROMENT=REMOTE  
-```
-```console
-export ENVIROMENT=IPRODUCTION  
-```  
-#### 2) clonar el proyecto desde Github
+#### 1) clonar el proyecto desde Github
 
 Ejecuta el siguiente comando en tu consola
 
@@ -52,7 +39,7 @@ Ejecuta el siguiente comando en tu consola
 git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
 ```
 
-#### 3) Instalar las dependencias en node_modules
+#### 2) Instalar las dependencias en node_modules
 
 Ejecuta los siguientes comandos en tu consola
 
@@ -65,21 +52,35 @@ npm audit fix
 
 ```
 
-#### 4) Agregar los datos de configuración
+#### 3) Agregar los datos de configuración
 
-##### 4.1 Actualizar la cadena de conexión a la base de datos
+##### 3.1 Actualizar la cadena de conexión a la base de datos
 
 Abra el archivo "database-setup.js" que se encuentra en el directorio "connections".
 
 reemplace la cadena mongodb://user:password@localhost, por sus datos de conexión según los ambientes que tenga disponibles.
 
-##### 4.2 Actualizar las rutas hacia los certificados SSL
+##### 3.2 Actualizar las rutas hacia los certificados SSL
 
 Abra el archivo "ssl-setup.js" que se encuentra en el directorio "connections".
 
 reemplace las rutas hacia los archivos privkey.pem, cert.pem, chain.pem, la ruta que viene por defecto es la usada en sistemas con Ubuntu Server.
 
-##### 4.3 Agregar el ID y Clave Secreta para nuestro cliente web
+#### 3.3 Definir la siguiente variable de entorno según sea el caso
+
+Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
+
+```console
+export ENVIROMENT=IN_NETWORK  
+```
+```console
+export ENVIROMENT=REMOTE  
+```
+```console
+export ENVIROMENT=PRODUCTION  
+```  
+
+##### 3.4 Agregar el ID y Clave Secreta para nuestro cliente web
 
 Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 y deben ser agregados en la linea 98 del archivo my-login.js.
 
@@ -88,7 +89,7 @@ Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" 
 Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a la que se incluye de ejemplo:  
 'Basic bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
 
-#### 5) Agregar los datos iniciales a su base de datos MongoDB
+#### 4) Agregar los datos iniciales a su base de datos MongoDB
 
 Ejecute el script de base de datos inicial
 
@@ -98,7 +99,7 @@ node ./example-data/example-data-mongo.js
 
 Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este paso tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
 
-#### 6) Ejecuta el servidor Web
+#### 5) Ejecuta el servidor Web
 
 ```console
 npm start
