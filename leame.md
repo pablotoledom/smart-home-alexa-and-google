@@ -66,7 +66,7 @@ Abra el archivo "ssl-setup.js" que se encuentra en el directorio "connections".
 
 reemplace las rutas hacia los archivos privkey.pem, cert.pem, chain.pem, la ruta que viene por defecto es la usada en sistemas con Ubuntu Server.
 
-#### 3.3 Definir la siguiente variable de entorno según sea el caso
+##### 3.3 Definir la siguiente variable de entorno según sea el caso
 
 Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
 
