@@ -85,7 +85,8 @@ Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 
 
 Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" como su id y clave respectivamente, podría utilizar el siguiente sitio web  https://www.base64encode.org/ para encriptarlos en Base64. Debe usar el siguiente formato mySuperId:mySuperSecretKey resultando la siguiente cadena bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk= 
 
-Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a esto 'Bearer bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
+Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a la que se incluye de ejemplo:  
+'Basic bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
 
 #### 5) Agregar los datos iniciales a su base de datos MongoDB
 

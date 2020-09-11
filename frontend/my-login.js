@@ -95,7 +95,7 @@ class MyLogin extends PolymerElement {
       "username": this.$.user.value,
       "password": this.$.password.value
     };
-    this.$.AjaxPost.headers['authorization'] = 'Basic base64(id:secret)';
+    this.$.AjaxPost.headers['authorization'] = 'Basic bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='; // replace string for your 'Basic base64(id:secret)'
     this.$.AjaxPost.generateRequest();
   }
 
