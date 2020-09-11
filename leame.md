@@ -110,8 +110,26 @@ El sitio web se levanta en el puerto 8080, asi que para visulizar el frontend so
 
 http://localhost:8080/
 
+Utilizar la cuenta de ejemplo
+
+#### Usuario:
+
+```
+myUserName
+```
+
+#### Contraseña:
+
+```
+smarthome
+```
 
 ## Despliegue 📦
+
+### 1) Crear un Actions de Google asistant y enlazar a tu servidor
+
+### 2) Crear un Skill de Amazon Alexa y enlazar a tu servidor  
+
 
 
 ## Autor

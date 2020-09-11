@@ -68,7 +68,7 @@ var loadExampleData = function() {
 		email: 'updateYour@email.com',
 		name: 'My Name',
 		lastName: 'My Last Name',
-		username: 'smarthome',
+		username: 'myUserName',
 		password: 'smarthome'
 	});
 
@@ -85,7 +85,7 @@ var loadExampleData = function() {
     "technologyType" : "RF433",
     "controlType" : "ESPURNA",
     "host" : "http://192.168.1.11",
-    "username" : "updateYour@email.com",
+    "username" : "myUserName",
     "apiKey" : "yourApiEspurnaKey",
 	});
 
@@ -97,7 +97,7 @@ var loadExampleData = function() {
 	});
 
 	var device = new deviceModel({
-    "username" : "updateYour@email.com",
+    "username" : "myUserName",
     "attributes" : {
         "colorModel" : "rgb"
     },
