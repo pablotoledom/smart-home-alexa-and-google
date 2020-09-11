@@ -106,11 +106,17 @@ npm start
 
 ## Ejecutando las pruebas ⚙️
 
-El sitio web se levanta en el puerto 8080, asi que para visulizar el frontend solo debe ir a la siguiente url desde su navegador web:
+El servidor se levanta en el puerto 8080 (sin SSL) y en el puerto 8443 (con SSL), para visulizar el frontend y los servicios acceda desde su navegador web a la IP correspondiente.
 
+Si ha montado el proyecto en un servidor acceda desde la IP del servidor.
+
+Si ha montado el proyecto en su máquina local ingrese a
+
+```
 http://localhost:8080/
+```
 
-Utilizar la cuenta de ejemplo
+### Utilizar la cuenta de ejemplo
 
 #### Usuario:
 
