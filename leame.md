@@ -2,6 +2,8 @@
 
 Proyecto para control de dispositivos inteligentes por medio de Google Home y Amazon Alexa. La idea es centralizar el estado e información de los dispositivos de tu hogar en una sola aplicación, de forma que al agregar un dispositivo nuevo este aparezca tanto en Google Home y Amazon Alexa, asi mismo las ordenes y cambios de estado puedan ser enviadas desde ambos asistentes, y que al mismo tiempo cada asistente muestre el estado actualizado del dispositivo independiente de quien envió la orden.
 
+[Click here for english readme](https://github.com/pablotoledom/smart-home-alexa-and-google/blob/master/readme.md)
+
 ## Comenzando 🚀
 
 Este proyecto es grande, usa una mezacla de muchas tecnologías, aunque he intentado de utilizar el mismo lenguaje (JavaScript) para todo el proyecto, no deja de ser un desafío que toma mucho tiempo de implementar, ha día de hoy calculo que levantar el servidor podría tomar 2 días.
@@ -99,7 +101,7 @@ Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 
 
 Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" como su id y clave respectivamente, podría utilizar el siguiente sitio web  https://www.base64encode.org/ para encriptarlos en Base64. Debe usar el siguiente formato mySuperId:mySuperSecretKey resultando la siguiente cadena bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk= 
 
-Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a la que se incluye de ejemplo:  
+Una vez la tenga reemplace la linea 98 del archivo "my-login.js" ubicado en el directorio "frontend", debiendo quedar la cadena similar a la que se incluye de ejemplo:  
 'Basic bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
 
 #### 4) Agregar los datos iniciales a su base de datos MongoDB
@@ -144,11 +146,10 @@ myUserName
 smarthome
 ```
 
-Si todo ha salido bien, deberías poder ver la pantalla de login y al iniciar la sesíon se debería ver un dispositivo de prueba.
+Si todo ha salido bien, deberías poder ver la pantalla de login y al iniciar la sesíon se debería ver un dispositivo de prueba. Agrega nuevos dispositivos!
 
 ![alt text](https://1.bp.blogspot.com/-AO_FmG7hNWU/X1vCapafzbI/AAAAAAAA668/iDmELl1AlpQsLFme1nOJVkE81emxpCUEwCLcBGAsYHQ/s1580/Sin%2Bnombre.jpg)
 
-Agrega nuevos dispositivos
 
 ## Despliegue 📦
 

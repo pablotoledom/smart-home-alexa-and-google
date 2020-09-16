@@ -1,110 +1,183 @@
 # smart-home-alexa-and-google
 
-Proyecto para control de dispositivos inteligentes por medio de Google Home y Amazon Alexa. La idea es centralizar el estado e información de los dispositivos de tu hogar en una sola aplicación, de forma que al agregar un dispositivo nuevo este aparezca tanto en Google Home y Amazon Alexa, asi mismo las ordenes y cambios de estado puedan ser enviadas desde ambos asistentes, y que al mismo tiempo cada asistente muestre el estado actualizado del dispositivo independiente de quien envió la orden.
+Project to control smart devices through Google Home and Amazon Alexa. The idea is to centralize the status and information of your home devices in a single application, so that when adding a new device it appears in both Google Home and Amazon Alexa, and orders and status changes can be sent to both assistants, and at the same time each assistant shows the updated status of the device regardless of who sent the order.
 
-## Comenzando 🚀
+[Haga click aquí para ir a leame en español](https://github.com/pablotoledom/smart-home-alexa-and-google/blob/master/leame.md)
 
-Este proyecto es grande, usa una mezacla de muchas tecnologías, aunque he intentado de utilizar el mismo lenguaje (JavaScript) para todo el proyecto, no deja de ser un desafío que toma mucho tiempo de implementar, ha día de hoy calculo que levantar el servidor podría tomar 2 días.
+## Starting 🚀
 
-Algunas cosas que veremos son:
+This project is large, it uses a mixture of many technologies, although I have tried to use the same language (JavaScript) for the entire project, it is still a challenge that takes a long time to implement, today I calculate that I will build the server it could take 2 days.
 
-- Servidor de autenticación Oauth 2
-- Servidor web por medio de NodeJS Express
-- Servicio web certificado con SSL mediante Letsencrypt.org
-- Frontend en Polymer 3
-- Backend en NodeJS
-- Persistencia de datos en MongoDB
+This repository is part of the project that I have implemented in my house, I never thought that it would take me so long to get to what I have today (2 years approx, since I could only advance in my free time and sometimes months went by without advancing). That is why I have made a 13-step guide where I detail each step of the development (being a large project, this guide also helps me to support it in the future), I leave the following link to whoever needs it.
 
-Actualmente tengo este proyecto corriendo en un máquina Raspberry Pi 2 como servidor, y me ha dado excelentes resultados, su bajo consumo y silencio, hace que el hardware pase muy desapercibido. Adicionalmente estoy usando hardware compatible con ESPURNA para controlar los dispositivos por medio de ordenes en radiofrecuencia 433Mhz, y a futuro tengo pensado programar las órdenes para un control de infrarojos.
+https://loqueseaqueaprenda.blogspot.com/2020/03/proyecto-demotica-parte-1-arquitectura.html  
+
+Some things we will see are:
+
+- Mount Raspberry Pi with Ubuntu Server
+- Oauth 2 authentication server
+- Web server on NodeJS Express
+- SSL certified web service through Letsencrypt.org
+- Frontend in Polymer 3
+- Backend in NodeJS
+- Data persistence in MongoDB
+- Dynamic domains (using Google domain)
+- Create third party service in Google Actions
+- Create third party service in Alexa Skills
+- Execute calls to ESPurna
+
+Currently I have this project running on a Raspberry Pi 2 machine as a server, and it has given me excellent results, its low consumption and silence, makes the hardware go very unnoticed. Additionally, I am using hardware compatible with ESPURNA to control the devices through 433Mhz radio frequency commands, and in the future I plan to program the commands for infrared control.
 
 
-### Pre-requisitos 📋
+### Pre-requisites 📋
 
-Servidor con sistema operativo compatible con las siguientes versiones de software:
+Server with operating system compatible with the following software versions:
 
-- NodeJs mínimo v10.16.3, recomendado v12.18.3
-- NPM mínimo 6.11.3, recomendado 6.14.7
-- MongoDB minimo 3.0.14, recomendado 3.6.8
+- NodeJs Minimum v10.16.3, recommended v12.18.3
+- NPM minimum 6.11.3, recommended 6.14.7
+- MongoDB minimum 3.0.14, recommended 3.6.8
 
-El servidor de producción debe ser accesible desde un dominio público con certificación SSL (puerto 443), si no no podrá ser accedido desde el Skill de Amazon o el Actions de Google.
+The production server must be accessible from a public domain with SSL certification (port 443), otherwise it will not be able to link from the Amazon Skill or Google Actions, in addition the environment or operating system must redirect the http calls to the following ports:
 
+- 80 -> 8080
+- 443 -> 8443
 
-### Instalación 🔧
+Since for security reasons the application does not directly use ports 80 and 443.
 
-#### 1) Definir la siguiente variable de entorno según sea el caso
+### Installation 🔧
 
-Si va a correr el proyecto en su maquina local sin un certificado SSL, no debe declarar ninguna variable.
+#### 1) Clone the proyect from Github
 
-export ENVIROMENT=IN_NETWORK  
-export ENVIROMENT=REMOTE  
-export ENVIROMENT=IPRODUCTION  
+Run the following command on your console
 
-#### 2) clonar el proyecto
-
+```console
 git clone https://github.com/pablotoledom/smart-home-alexa-and-google.git
+```
 
-#### 3) Instalar las dependencias en node_modules
+#### 2) Install the node_modules dependencies
+
+Run the following commands in your terminal
+
+```console
+cd smart-home-alexa-and-google
 
 npm install
 
 npm audit fix
 
-#### 4) Agregar los datos de configuración
+```
 
-##### 4.1 Actualizar la cadena de conexión a la base de datos
+#### 3) Add the configuration data
 
-Abra el archivo "database-setup.js" que se encuentra en el directorio "connections".
+##### 3.1 Update the data base connection string
 
-reemplace la cadena mongodb://user:password@localhost, por sus datos de conexión según los ambientes que tenga disponibles.
+Open the "database-setup.js" file found in the "connections" directory.
 
-##### 4.2 Actualizar las rutas hacia los certificados SSL
+replace the string mongodb://user:password@localhost, with your connection data depending on the environments you have available.
 
-Abra el archivo "ssl-setup.js" que se encuentra en el directorio "connections".
+##### 3.2 Update routes to SSL certificates
 
-reemplace las rutas hacia los archivos privkey.pem, cert.pem, chain.pem, la ruta que viene por defecto es la usada en sistemas con Ubuntu Server.
+Open the file "ssl-setup.js" found in the "connections" directory.
 
-##### 4.3 Agregar el ID y Clave Secreta para nuestro cliente web
+replace the paths to the privkey.pem, cert.pem, chain.pem files, the path that comes by default is the one used in systems with Ubuntu Server.
 
-Defina un ID y Clave Secreta, estos dos valores deben ser encriptados en Base64 y deben ser agregados en la linea 98 del archivo my-login.js.
+##### 3.3 Define the following environment variable as the case may be
 
-Ejemplo: si usted define los siguientes valores "mySuperId", "mySuperSecretKey" como su id y clave respectivamente, podría utilizar el siguiente sitio web  https://www.base64encode.org/ para encriptarlos en Base64. Debe usar el siguiente formato mySuperId:mySuperSecretKey resultando la siguiente cadena bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk= 
+If you are going to run the project on your local machine without an SSL certificate, you should not declare any variables.
 
-Una vez la tenga reemplace la linea 98 del archivo my-login.js, debiendo quedar la cadena similar a esto 'Bearer bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk='.
+```console
+export ENVIROMENT=IN_NETWORK  
+```
+```console
+export ENVIROMENT=REMOTE  
+```
+```console
+export ENVIROMENT=PRODUCTION  
+```  
 
-#### 5) Agregar los datos iniciales a su base de datos MongoDB
+##### 3.4 Add the ID and Secret Key for our web client
 
-Ejecute el script de base de datos inicial
+Define an ID and Secret Key, these two values must be encrypted in Base64 and must be added in line 98 of the my-login.js file.
 
+Example: if you define the following values "mySuperId", "mySuperSecretKey" as your id and key respectively, you could use the following website https://www.base64encode.org/ to encrypt them in Base64. You must use the following format mySuperId:mySuperSecretKey resulting in the following string bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk= 
+
+Once you have it, replace line 98 of the "my-login.js" file located in the "frontend" directory, the string should be similar to the one included as an example:
+'Basic bXlTdXBlcklkOm15U3VwZXJTZWNyZXRLZXk ='.
+
+#### 4) Add the initial data to your MongoDB database
+
+Run the initial database script
+
+```console
 node ./example-data/example-data-mongo.js
+```
 
-Una vez terminado de ejecutar, se mostrarán en la terminal los documentos recién agregados a la base de datos, luego de este paso tendrá un proyecto que pude ser arrancado y visualizado desde un navegador web
+Once the execution is finished, the documents just added to the database will be displayed in the terminal, after this step you will have a project that can be started and viewed from a web browser
 
-#### 6) Ejecuta el servidor Web
+#### 5) Ejecuta el servidor Web
+#### 5) Run the Web server
 
+```console
 npm start
+```
 
+## Running the tests ⚙️
 
-## Ejecutando las pruebas ⚙️
+The server gets up on port 8080 (without SSL) and on port 8443 (with SSL), to view the frontend and the services, access the corresponding IP from your web browser.
 
-El sitio web se levanta en el puerto 8080, asi que para visulizar el frontend solo debe ir a la siguiente url desde su navegador web:
+If you have mounted the project on a server, access it from the domain or from the server's IP.
 
+If you have mounted the project on your local machine go to
+
+```
 http://localhost:8080/
+```
+
+### Use the sample account
+
+#### User:
+
+```
+myUserName
+```
+
+#### Password:
+
+```
+smarthome
+```
+
+If everything went well, you should be able to see the login screen and upon logging in you should see a test device. Add new devices!.
+
+![alt text](https://1.bp.blogspot.com/-AO_FmG7hNWU/X1vCapafzbI/AAAAAAAA668/iDmELl1AlpQsLFme1nOJVkE81emxpCUEwCLcBGAsYHQ/s1580/Sin%2Bnombre.jpg)
 
 
-## Despliegue 📦
+## Deployment 📦
+
+To continue with this project, the third-party service must be created within your assistant, then I leave the links for the assistant you use or if you wish for both.
+
+### 1) Create a Google assistant Actions and link to your server
+
+https://loqueseaqueaprenda.blogspot.com/2020/09/proyecto-domotica-parte-11-crear.html
 
 
-## Autor
+### 2) Create an Amazon Alexa Skill and link to your server
+
+https://loqueseaqueaprenda.blogspot.com/2020/09/proyecto-domotica-parte-12-crear.html
+
+
+## Author
 
 Pablo Toledo
 
 
-## Licencia 📄
+## Licence 📄
 
-Este proyecto está bajo la Licencia Apache, Versión 2.0 - mira el archivo [LICENSE.md](LICENSE.md) para detalles.
+This project is under the Apache License, Version 2.0 - see the file [LICENCIA.md](LICENSE.md) for more details.
 
-## Expresiones de Gratitud 🎁
+## Expressions of Gratitude 🎁
 
-- Agradecimiento a [Pedro Trujillo](https://github.com/pedroetb) por los ejemplos para montar un servidor Oauth 2 con NodeJS y MongoDB
-- Agradecimiento a la comunidad de Google Actions por el proyecto web en Polymer 3 sobre Firebase que he usado como base para administrar los dispositivos [Actions On Google](https://github.com/actions-on-google)
-- Agradecimiento a [Andrés Villanueva](https://github.com/Villanuevand) por la guía para construir el readme
+- Thanks to [Pedro Trujillo](https://github.com/pedroetb) for the examples to mount an Oauth 2 server with NodeJS and MongoDB
+- Thanks to the Google Actions community for the web project in Polymer 3 on Firebase that I used as a basis for managing the devices [Actions On Google](https://github.com/actions-on-google)
+- Thanks to the Alexa community for the available examples [Alexa](https://github.com/alexa/)
+- Thanks to [Andrés Villanueva](https://github.com/Villanuevand) for the guide to build the readme
