@@ -6,14 +6,23 @@ Proyecto para control de dispositivos inteligentes por medio de Google Home y Am
 
 Este proyecto es grande, usa una mezacla de muchas tecnologías, aunque he intentado de utilizar el mismo lenguaje (JavaScript) para todo el proyecto, no deja de ser un desafío que toma mucho tiempo de implementar, ha día de hoy calculo que levantar el servidor podría tomar 2 días.
 
+Este repositorio es parte del proyecto que he implementado en mi casa, nunca pensé que me tomaría tanto tiempo llegar a lo que tengo hoy (2 años aprox, ya que solo podía avanzar en mi tiempo libre y a veces pasaban meses sin avanzar). Por esto he realizado una guia de 13 pasos donde detallo cada paso del desarrollo (al ser un proyecto grande esta guia también me sirve para darle soporte a futuro), dejo el siguiente enlace a quien lo necesite.
+
+https://loqueseaqueaprenda.blogspot.com/2020/03/proyecto-demotica-parte-1-arquitectura.html  
+
 Algunas cosas que veremos son:
 
+- Montar Raspberry Pi con Ubuntu Server
 - Servidor de autenticación Oauth 2
 - Servidor web por medio de NodeJS Express
 - Servicio web certificado con SSL mediante Letsencrypt.org
 - Frontend en Polymer 3
 - Backend en NodeJS
 - Persistencia de datos en MongoDB
+- Dominios dinámicos (usando Google domain)
+- Crear servicio de tercero en Google Actions
+- Crear servicio de tercero en Alexa Skills
+- Ejecutar llamadas a ESPurna
 
 Actualmente tengo este proyecto corriendo en un máquina Raspberry Pi 2 como servidor, y me ha dado excelentes resultados, su bajo consumo y silencio, hace que el hardware pase muy desapercibido. Adicionalmente estoy usando hardware compatible con ESPURNA para controlar los dispositivos por medio de ordenes en radiofrecuencia 433Mhz, y a futuro tengo pensado programar las órdenes para un control de infrarojos.
 
@@ -26,8 +35,12 @@ Servidor con sistema operativo compatible con las siguientes versiones de softwa
 - NPM mínimo 6.11.3, recomendado 6.14.7
 - MongoDB minimo 3.0.14, recomendado 3.6.8
 
-El servidor de producción debe ser accesible desde un dominio público con certificación SSL (puerto 443), si no no podrá ser accedido desde el Skill de Amazon o el Actions de Google.
+El servidor de producción debe ser accesible desde un dominio público con certificación SSL (puerto 443), en caso contrario no podrá enlazarse desde el Skill de Amazon o el Actions de Google, además el entorno o sistema operativo debe redireccionar las llamadas http hacia los siguientes puertos:
 
+- 80 -> 8080
+- 443 -> 8443
+
+Ya que por motivos de seguridad la aplicación no utiliza directamente los puertos 80 y 443.
 
 ### Instalación 🔧
 
@@ -131,18 +144,24 @@ myUserName
 smarthome
 ```
 
-Si todo ha salido bien, deberías poder ver la pantalla de login y al iniciar la sesíon debería verse un dispositivo de prueba.
+Si todo ha salido bien, deberías poder ver la pantalla de login y al iniciar la sesíon se debería ver un dispositivo de prueba.
 
 ![alt text](https://1.bp.blogspot.com/-AO_FmG7hNWU/X1vCapafzbI/AAAAAAAA668/iDmELl1AlpQsLFme1nOJVkE81emxpCUEwCLcBGAsYHQ/s1580/Sin%2Bnombre.jpg)
 
+Agrega nuevos dispositivos
+
 ## Despliegue 📦
+
+Para continuar con este proyecto se debe crear el servicio de tercero dentro de tu asistente, a continuación dejo los enlaces para el asistente que utilices o si lo deseas para ambos.
 
 ### 1) Crear un Actions de Google asistant y enlazar a tu servidor
 
+https://loqueseaqueaprenda.blogspot.com/2020/09/proyecto-domotica-parte-11-crear.html
 
 
 ### 2) Crear un Skill de Amazon Alexa y enlazar a tu servidor  
 
+https://loqueseaqueaprenda.blogspot.com/2020/09/proyecto-domotica-parte-12-crear.html
 
 
 ## Autor
