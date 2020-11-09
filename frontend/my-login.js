@@ -16,6 +16,11 @@ import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import './shared-styles.js';
 
+function getParamsKeys() {
+  const URLParams = window.location.search.substring(1);
+  return URLParams ? JSON.parse('{"' + decodeURI(URLParams).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}') : {};
+}
+
 class MyLogin extends PolymerElement {
   constructor() {
     super();
@@ -73,8 +78,9 @@ class MyLogin extends PolymerElement {
 
   ready() {
     super.ready();
-    console.log("login is ready!");
-    if (JSON.parse(localStorage.getItem("isUserSession")) === true) {
+    const paramsKeys = getParamsKeys();
+    console.log("login is ready!", paramsKeys.redirect_uri);
+    if (JSON.parse(localStorage.getItem("isUserSession")) === true && (new Date(localStorage.getItem("accessTokenExpiresAt")) - new Date()) > 0 && !paramsKeys.redirect_uri) {
       console.log('you have session, redirect to devices!');
       // this.set('route.path', '#/devices');
       window.location.replace('/#/devices');
@@ -108,10 +114,9 @@ class MyLogin extends PolymerElement {
       localStorage.setItem("username", data.user.username);
       localStorage.setItem("isUserSession", true);
 
-      const URLParams = window.location.search.substring(1);
-      const paramsKeys = URLParams ? JSON.parse('{"' + decodeURI(URLParams).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}') : null;
+      const paramsKeys = getParamsKeys();
 
-      if (!!paramsKeys && paramsKeys.redirect_uri) {
+      if (paramsKeys.redirect_uri) {
         const code = btoa(this.$.user.value + ':' + this.$.password.value);
         const redirectUri = decodeURIComponent(paramsKeys.redirect_uri + '?code=' + code + '&state=' + paramsKeys.state);
         console.log('uri to redirect: ', redirectUri);
