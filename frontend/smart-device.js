@@ -150,6 +150,10 @@ export class SmartDevice extends PolymerElement {
           </paper-dropdown-menu>
 
           <paper-input id="hubDeviceId" label="HUB channel" value="{{device.hubInformation.channel}}"></paper-input>
+
+          <paper-input id="hubDeviceId" label="Data ON" value="{{device.hubInformation.dataON}}"></paper-input>
+
+          <paper-input id="hubDeviceId" label="Data OFF" value="{{device.hubInformation.dataOFF}}"></paper-input>
         </section>
 
         <paper-toast id="successMsg" text="Hub has been updated successfully." class="success-message"></paper-toast>
@@ -239,6 +243,8 @@ export class SmartDevice extends PolymerElement {
         hubInformation: {
           hubId: hub.id,
           channel: this.device.hubInformation.channel,
+          dataON: this.device.hubInformation.dataON,
+          dataOFF: this.device.hubInformation.dataOFF,
         }
       })
     }).then((response) => {

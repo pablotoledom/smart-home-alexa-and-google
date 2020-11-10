@@ -125,6 +125,7 @@ export class SmartHub extends PolymerElement {
           <paper-dropdown-menu label="Control type" value="{{hub.controlType}}">
             <paper-listbox id="controlType" slot="dropdown-content">
               <paper-item>ESPURNA</paper-item>
+              <paper-item>TASMOTA</paper-item>
               <paper-item>OTHER</paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
