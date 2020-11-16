@@ -3,7 +3,7 @@ const querystring = require('querystring');
 
 const deviceDispatcher = async (device, getHub) => {
   // Set change to hub
-  if ((device.states.on || !device.states.on) && device.hubExecution) {
+  if (device && device.states && (device.states.on || !device.states.on) && device.hubExecution) {
     // Get device hub
     const hub = await getHub(device.username, device.hubInformation.hubId);
 
@@ -59,7 +59,7 @@ const deviceDispatcher = async (device, getHub) => {
     }
   }
 
-  // return device;
+  return device;
 }
 
 module.exports = deviceDispatcher;
