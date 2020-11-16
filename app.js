@@ -13,10 +13,12 @@ const express = require('express'),
 	sslSetup = require('./connections/ssl-setup.js'),
 	https = require('https')
 	fs = require('fs');
-
+	
 const app = express();
+const deviceDispatcher = require('./backend/services/device-dispatcher.js');
 
-
+global.myQueue = [];
+	
 // ********* SSL CERTIFICATES *********
 let httpsServer;
 if (process.env.ENVIROMENT === 'PRODUCTION') {
@@ -51,6 +53,21 @@ app.oauth = new OAuth2Server({
 	accessTokenLifetime: 60 * 60,
 	allowBearerTokensInQueryString: true
 });
+
+// ********* QUEUE DEVICES EXECUTION LOOP *********
+const queue = async () => {	
+	if (global.myQueue.length > 0) {
+		const executionItem = global.myQueue.shift();
+		await deviceDispatcher(executionItem.scope, model.getHub);
+		console.log('Remaining items in queue: ', global.myQueue.length);
+	}
+
+	setTimeout(() => {
+		queue();
+	}, 500);
+};
+
+queue();
 
 // ********* ENDPOINTS *********
 app.all('/api/oauth/token', passwordToAc, obtainToken);

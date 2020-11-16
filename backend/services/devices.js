@@ -19,7 +19,7 @@ const getAll = async (req, res) => {
 };
 
 const getOne = async (req, res) => {
-	console.log('Search devices', req.params);
+	console.log('Find device', req.params);
 	if (res.locals.oauth.token && req.params.id) {
 		await model.getDevice(res.locals.oauth.token.user.username, req.params.id)
 		.exec()
@@ -55,7 +55,7 @@ const getOneInRealtime = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	console.log('Search devices');
+	console.log('Create device');
 	if (res.locals.oauth.token) {
 		await model.createDevice({
 			...req.body,
