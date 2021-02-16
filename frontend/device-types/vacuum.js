@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.VACUUM'
+
 class Vacuum extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['kitchen vacuum'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['robo vacuum'],
-      roomHint: 'Master Bedroom'
+      roomHint: 'Master Bedroom',
     }];
   }
 
@@ -34,11 +36,11 @@ class Vacuum extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.VACUUM',
+      type,
       traits: [
         'action.devices.traits.StartStop',
         'action.devices.traits.Toggles',
-        'action.devices.traits.Dock'
+        'action.devices.traits.Dock',
       ],
       defaultNames: [`Smart Vacuum`],
       name: `Smart Vacuum`,
@@ -50,14 +52,9 @@ class Vacuum extends DeviceType {
           name: 'quiet',
           name_values: [{
             name_synonym: ['quiet', 'silent'],
-            lang: 'en'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'en',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -66,20 +63,28 @@ class Vacuum extends DeviceType {
         isPaused: false,
         isDocked: false,
         currentToggleSettings: {
-          quiet: false
-        }
+          quiet: false,
+        },
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addVacuum',
-  icon: 'hardware:router',
+  icon: 'hardware:scanner',
   label: 'Vacuum',
-  function: (app) => { app._createDevice(Vacuum.createDevice()); }
+  function: (app) => {
+    app._createDevice(Vacuum.createDevice());
+  },
 })

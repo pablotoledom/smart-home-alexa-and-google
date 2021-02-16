@@ -14,18 +14,20 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.REFRIGERATOR'
+
 class Refrigerator extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['kitchen refrigerator'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['mini fridge'],
-      roomHint: 'Office'
+      roomHint: 'Office',
     }, {
       nicknames: ['garage freezer'],
-      roomHint: 'Garage'
+      roomHint: 'Garage',
     }];
   }
 
@@ -37,7 +39,7 @@ class Refrigerator extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.REFRIGERATOR',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Toggles',
@@ -52,14 +54,9 @@ class Refrigerator extends DeviceType {
           name: 'quiet',
           name_values: [{
             name_synonym: ['quiet', 'silent'],
-            lang: 'en'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'en',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -67,19 +64,27 @@ class Refrigerator extends DeviceType {
         on: false,
         currentToggleSettings: {
           quiet: false,
-        }
+        },
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addRefrigerator',
   icon: 'places:kitchen',
   label: 'Refrigerator',
-  function: (app) => { app._createDevice(Refrigerator.createDevice()); }
+  function: (app) => {
+    app._createDevice(Refrigerator.createDevice());
+  },
 })

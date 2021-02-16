@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.HEATER'
+
 class Heater extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['upstairs heater'],
-      roomHint: 'Bedroom'
+      roomHint: 'Bedroom',
     }];
   }
 
@@ -31,10 +33,10 @@ class Heater extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.HEATER',
+      type,
       traits: [
         'action.devices.traits.OnOff',
-        'action.devices.traits.FanSpeed'
+        'action.devices.traits.FanSpeed',
       ],
       defaultNames: [`Smart Heater`],
       name: `Smart Heater`,
@@ -46,23 +48,18 @@ class Heater extends DeviceType {
             speed_name: 'Low',
             speed_values: [{
               speed_synonym: ['low', 'slow'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: 'High',
             speed_values: [{
               speed_synonym: ['high'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }],
-          ordered: true
+          ordered: true,
         },
-        reversible: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        reversible: true,
       },
       willReportState: true,
       states: {
@@ -70,15 +67,23 @@ class Heater extends DeviceType {
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addHeater',
   icon: 'icons:account-balance-wallet',
   label: 'Heater',
-  function: (app) => { app._createDevice(Heater.createDevice()); }
+  function: (app) => {
+    app._createDevice(Heater.createDevice());
+  },
 })

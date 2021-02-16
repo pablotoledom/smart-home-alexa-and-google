@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.DRYER'
+
 class Dryer extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['clothes dryer'],
-      roomHint: 'Laundry Room'
+      roomHint: 'Laundry Room',
     }];
   }
 
@@ -31,13 +33,13 @@ class Dryer extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.DRYER',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.StartStop',
         'action.devices.traits.Modes',
         'action.devices.traits.Toggles',
-        'action.devices.traits.RunCycle'
+        'action.devices.traits.RunCycle',
       ],
       defaultNames: [`Smart Dryer`],
       name: `Smart Dryer `,
@@ -49,61 +51,81 @@ class Dryer extends DeviceType {
           name: 'load',
           name_values: [{
             name_synonym: ['load', 'size', 'load size'],
-            lang: 'en'
+            lang: 'en',
           }],
           settings: [{
-              setting_name: 'small',
-              setting_values: [{
-                setting_synonym: ['small', 'half'],
-                lang: 'en'
-              }]
-            },
-            {
-              setting_name: 'large',
-              setting_values: [{
-                setting_synonym: ['large', 'full'],
-                lang: 'en'
-              }]
-            }
-          ],
-          ordered: true
-        }],
-        availableToggles: [{
-            name: 'Sterilization',
-            name_values: [{
-              name_synonym: ['Bio-clean', 'UltraSound'],
-              lang: 'en'
-            }]
+            setting_name: 'small',
+            setting_values: [{
+              setting_synonym: ['small', 'half'],
+              lang: 'en',
+            }],
           },
           {
-            name: 'Energy Saving',
-            name_values: [{
-              name_synonym: ['normal', 'medium', 'high'],
-              lang: 'en'
-            }]
-          }
-        ]
+            setting_name: 'large',
+            setting_values: [{
+              setting_synonym: ['large', 'full'],
+              lang: 'en',
+            }],
+          },
+          ],
+          ordered: true,
+        }],
+        availableToggles: [{
+          name: 'Sterilization',
+          name_values: [{
+            name_synonym: ['Bio-clean', 'UltraSound'],
+            lang: 'en',
+          }],
+        },
+        {
+          name: 'Energy Saving',
+          name_values: [{
+            name_synonym: ['normal', 'medium', 'high'],
+            lang: 'en',
+          }],
+        },
+        ],
       },
+      willReportState: true,
+      states: {
+        online: true,
+        currentModeSettings: {
+          load: 'small',
+        },
+        currentToggleSettings: {
+          'Sterilization': false,
+          'Energy Saving': false,
+        },
+        currentRunCycle: [{
+          currentCycle: 'rinse',
+          nextCycle: 'spin',
+          lang: 'en',
+        }],
+        currentTotalRemainingTime: 1212,
+        currentCycleRemainingTime: 301,
+        isRunning: false,
+        isPaused: false,
+        on: false,
+      },
+      hwVersion: '3.2',
+      swVersion: '11.4',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-      },
-      hwVersion: '3.2',
-      swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addDryer',
   icon: 'places:casino',
   label: 'Dryer',
-  function: (app) => { app._createDevice(Dryer.createDevice()); }
+  function: (app) => {
+    app._createDevice(Dryer.createDevice());
+  },
 })

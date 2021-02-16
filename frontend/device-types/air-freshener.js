@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.AIRFRESHENER'
+
 class AirFreshener extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['Mr. Fresh'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,7 +33,7 @@ class AirFreshener extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.AIRFRESHENER',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Toggles',
@@ -45,17 +47,12 @@ class AirFreshener extends DeviceType {
           name: 'intermittent spray',
           name_values: [{
             name_synonym: ['intermittent spray'],
-            lang: 'en'
+            lang: 'en',
           }, {
             name_synonym: ['intermittierender Spray'],
-            lang: 'de'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'de',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -63,15 +60,23 @@ class AirFreshener extends DeviceType {
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addAirFreshener',
   icon: 'icons:hourglass-full',
   label: 'Air Freshener',
-  function: (app) => { app._createDevice(AirFreshener.createDevice()); }
+  function: (app) => {
+    app._createDevice(AirFreshener.createDevice());
+  },
 })

@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.AIRPURIFIER'
+
 class AirPurifier extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['air filter'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }, {
       nicknames: ['violet air purifier'],
-      roomHint: 'Dining Room'
+      roomHint: 'Dining Room',
     }];
   }
 
@@ -34,7 +36,7 @@ class AirPurifier extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.AIRPURIFIER',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Toggles',
@@ -50,26 +52,26 @@ class AirPurifier extends DeviceType {
             speed_name: '0',
             speed_values: [{
               speed_synonym: ['off'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '1',
             speed_values: [{
               speed_synonym: ['low'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '2',
             speed_values: [{
               speed_synonym: ['medium'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '3',
             speed_values: [{
               speed_synonym: ['high'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }],
           ordered: true,
         },
@@ -78,14 +80,9 @@ class AirPurifier extends DeviceType {
           name: 'uv',
           name_values: [{
             name_synonym: ['uv'],
-            lang: 'en'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'en',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -93,19 +90,27 @@ class AirPurifier extends DeviceType {
         currentFanSpeedSetting: '0',
         currentToggleSettings: {
           uv: false,
-        }
+        },
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addAirPurifier',
   icon: 'hardware:sim-card',
   label: 'Air Purifier',
-  function: (app) => { app._createDevice(AirPurifier.createDevice()); }
+  function: (app) => {
+    app._createDevice(AirPurifier.createDevice());
+  },
 })

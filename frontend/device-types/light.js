@@ -14,21 +14,29 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.LIGHT'
+const iconFunction = (attributes) => {
+  if (attributes.colorTemperatureRange) {
+    return 'image:wb-iridescent'
+  }
+  return 'image:wb-incandescent'
+}
+
 class Light extends DeviceType {
   constructor() {
     super()
     this.monochromeValuesArray = [{
       nicknames: ['ceiling lights'],
-      roomHint: 'Family Room'
+      roomHint: 'Family Room',
     }, {
       nicknames: ['garden lights'],
-      roomHint: 'Front Yard'
+      roomHint: 'Front Yard',
     }, {
       nicknames: ['workshop light'],
-      roomHint: 'Shed'
+      roomHint: 'Shed',
     }, {
       nicknames: ['porch light'],
-      roomHint: 'Front Yard'
+      roomHint: 'Front Yard',
     }];
 
     this.simpleValuesArray = [{
@@ -44,19 +52,19 @@ class Light extends DeviceType {
       nicknames: ['Reading lamp'],
       roomHint: 'Bedroom'
     }];
-    
+
     this.rgbValuesArray = [{
       nicknames: ['table lamp'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }, {
       nicknames: ['reading lamp'],
-      roomHint: 'Bedroom'
+      roomHint: 'Bedroom',
     }, {
       nicknames: ['doorway'],
-      roomHint: 'Hallway'
+      roomHint: 'Hallway',
     }, {
       nicknames: ['stairway'],
-      roomHint: 'Hallway'
+      roomHint: 'Hallway',
     }];
   }
 
@@ -68,7 +76,7 @@ class Light extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.LIGHT',
+      type,
       traits: [
         'action.devices.traits.Brightness',
         'action.devices.traits.OnOff',
@@ -82,13 +90,8 @@ class Light extends DeviceType {
         colorModel: 'rgb',
         colorTemperatureRange: {
           temperatureMinK: 2000,
-          temperatureMaxK: 9000
-        }
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+          temperatureMaxK: 9000,
+        },
       },
       willReportState: true,
       states: {
@@ -96,13 +99,16 @@ class Light extends DeviceType {
         online: true,
         brightness: 90,
         color: {
-          temperatureK: 2000
-        }
+          temperatureK: 2000,
+        },
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 
@@ -114,7 +120,7 @@ class Light extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.LIGHT',
+      type,
       traits: [
         'action.devices.traits.OnOff',
       ],
@@ -124,11 +130,6 @@ class Light extends DeviceType {
       roomHint: instance.getRoomHint(element),
       attributes: {
         colorModel: 'rgb',
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
       },
       willReportState: true,
       states: {
@@ -140,11 +141,16 @@ class Light extends DeviceType {
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
-  
+
   static createRgbLight() {
     if (!instance) {
       instance = new Light()
@@ -153,7 +159,7 @@ class Light extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.LIGHT',
+      type,
       traits: [
         'action.devices.traits.Brightness',
         'action.devices.traits.OnOff',
@@ -164,12 +170,7 @@ class Light extends DeviceType {
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        colorModel: 'rgb'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        colorModel: 'rgb',
       },
       willReportState: true,
       states: {
@@ -177,22 +178,29 @@ class Light extends DeviceType {
         online: true,
         brightness: 90,
         color: {
-          spectrumRgb: 0
-        }
+          spectrumRgb: 0xFF0000 /* Red */,
+        },
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addMonochromeLight',
   icon: 'image:wb-iridescent',
   label: 'Monochrome Light',
-  function: (app) => { app._createDevice(Light.createMonochromeLight()); }
+  iconFunction,
+  function: (app) => {
+    app._createDevice(Light.createMonochromeLight());
+  },
 })
 
 
@@ -200,12 +208,20 @@ window.deviceTypes.push({
   identifier: '_addSimpleLight',
   icon: 'image:wb-iridescent',
   label: 'Simple Light',
-  function: (app) => { app._createDevice(Light.createSimpleLight()); }
+  iconFunction,
+  function: (app) => {
+    app._createDevice(Light.createSimpleLight());
+  },
 })
 
+
 window.deviceTypes.push({
+  type,
   identifier: '_addLight',
   icon: 'image:wb-incandescent',
   label: 'RGB Light',
-  function: (app) => { app._createDevice(Light.createRgbLight()); }
+  iconFunction,
+  function: (app) => {
+    app._createDevice(Light.createRgbLight());
+  },
 })

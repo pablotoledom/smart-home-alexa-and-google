@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.VALVE'
+
 class Valve extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['water valve'],
-      roomHint: 'Laundry Room'
+      roomHint: 'Laundry Room',
     }];
   }
 
@@ -31,35 +33,38 @@ class Valve extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.VALVE',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Valve`],
       name: `Smart Valve`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
+      willReportState: true,
+      states: {
+        online: true,
+        openPercent: 0,
+      },
+      hwVersion: '3.2',
+      swVersion: '11.4',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        openPercent: 0
-      },
-      hwVersion: '3.2',
-      swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addValve',
   icon: 'icons:settings-input-component',
   label: 'Valve',
-  function: (app) => { app._createDevice(Valve.createDevice()); }
+  function: (app) => {
+    app._createDevice(Valve.createDevice());
+  },
 })

@@ -14,11 +14,9 @@ import { DeviceType } from './device-type';
 
 let instance;
 
-class Scene extends DeviceType {
-  constructor() {
-    super()
-  }
+const type = 'action.devices.types.SCENE'
 
+class Scene extends DeviceType {
   static createDevice() {
     if (!instance) {
       instance = new Scene()
@@ -26,7 +24,7 @@ class Scene extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.SCENE',
+      type,
       traits: [
         'action.devices.traits.Scene',
       ],
@@ -35,12 +33,7 @@ class Scene extends DeviceType {
       nicknames: [`Party Mode`],
       roomHint: '',
       attributes: {
-        sceneReversible: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        sceneReversible: true,
       },
       willReportState: false,
       states: {
@@ -49,15 +42,23 @@ class Scene extends DeviceType {
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addScene',
   icon: 'image:slideshow',
   label: 'Scene',
-  function: (app) => { app._createDevice(Scene.createDevice()); }
+  function: (app) => {
+    app._createDevice(Scene.createDevice());
+  },
 })

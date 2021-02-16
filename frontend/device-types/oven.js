@@ -14,21 +14,23 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.OVEN'
+
 class Oven extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['oven'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['stove'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['broiler'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['microwave'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -40,8 +42,9 @@ class Oven extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.OVEN',
+      type,
       traits: [
+        'action.devices.traits.Cook',
         'action.devices.traits.OnOff',
         'action.devices.traits.TemperatureControl',
       ],
@@ -52,31 +55,43 @@ class Oven extends DeviceType {
       attributes: {
         temperatureRange: {
           minThresholdCelsius: 100.0,
-          maxThresholdCelsius: 300.0
+          maxThresholdCelsius: 300.0,
         },
-        temperatureUnitForUX: 'C'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        temperatureUnitForUX: 'C',
+        supportedCookingModes: [
+          'BAKE',
+          'CONVECTION_BAKE',
+          'ROAST',
+        ],
       },
       willReportState: true,
       states: {
         online: true,
         temperatureSetpointCelsius: 200,
+        currentCookingMode: 'NONE',
+        currentFoodPreset: 'NONE',
+        currentFoodQuantity: 0,
+        currentFoodUnit: 'NO_UNITS',
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addOven',
   icon: 'av:web',
   label: 'Oven',
-  function: (app) => { app._createDevice(Oven.createDevice()); }
+  function: (app) => {
+    app._createDevice(Oven.createDevice());
+  },
 })

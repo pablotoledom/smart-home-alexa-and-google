@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.LOCK'
+
 class Lock extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['front door'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }, {
       nicknames: ['back door'],
-      roomHint: 'Garage'
+      roomHint: 'Garage',
     }];
   }
 
@@ -34,36 +36,39 @@ class Lock extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.LOCK',
+      type,
       traits: [
-        'action.devices.traits.LockUnlock'
+        'action.devices.traits.LockUnlock',
       ],
       defaultNames: [`Smart Lock`],
       name: `Smart Lock`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
+      willReportState: true,
+      states: {
+        online: true,
+        isLocked: false,
+        isJammed: false,
+      },
+      hwVersion: '3.2',
+      swVersion: '11.4',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        isLocked: false,
-        isJammed: false
-      },
-      hwVersion: '3.2',
-      swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addLock',
   icon: 'icons:lock',
   label: 'Lock',
-  function: (app) => { app._createDevice(Lock.createDevice()); }
+  function: (app) => {
+    app._createDevice(Lock.createDevice());
+  },
 })

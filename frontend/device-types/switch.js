@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.SWITCH'
+
 class Switch extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['smart switch'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }];
   }
 
@@ -31,7 +33,7 @@ class Switch extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.SWITCH',
+      type,
       traits: [
         'action.devices.traits.OnOff',
       ],
@@ -39,27 +41,30 @@ class Switch extends DeviceType {
       name: `Smart Switch`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
+      willReportState: true,
+      states: {
+        online: true,
+        on: false,
+      },
+      hwVersion: '1.0.0',
+      swVersion: '2.0.0',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        on: false
-      },
-      hwVersion: '1.0.0',
-      swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addSwitch',
   icon: 'communication:call-merge',
   label: 'Switch',
-  function: (app) => { app._createDevice(Switch.createDevice()); }
+  function: (app) => {
+    app._createDevice(Switch.createDevice());
+  },
 })

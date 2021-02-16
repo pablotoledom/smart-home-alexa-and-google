@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.GATE'
+
 class Gate extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['driveway gate'],
-      roomHint: 'Patio'
+      roomHint: 'Patio',
     }];
   }
 
@@ -31,7 +33,7 @@ class Gate extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.GATE',
+      type,
       traits: [
         'action.devices.traits.OpenClose',
       ],
@@ -40,35 +42,38 @@ class Gate extends DeviceType {
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['IN', 'OUT']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['IN', 'OUT'],
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openPercent: 0,
-          openDirection: 'IN'
+          openDirection: 'IN',
         }, {
           openPercent: 0,
-          openDirection: 'OUT'
-        }]
+          openDirection: 'OUT',
+        }],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addGate',
   icon: 'device:storage',
   label: 'Gate',
-  function: (app) => { app._createDevice(Gate.createDevice()); }
+  function: (app) => {
+    app._createDevice(Gate.createDevice());
+  },
 })

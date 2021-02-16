@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.MICROWAVE'
+
 class Microwave extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['microwave'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,10 +33,11 @@ class Microwave extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.MICROWAVE',
+      type,
       traits: [
+        'action.devices.traits.Cook',
         'action.devices.traits.StartStop',
-        'action.devices.traits.Timer'
+        'action.devices.traits.Timer',
       ],
       defaultNames: [`Smart Microwave`],
       name: `Smart Microwave`,
@@ -42,12 +45,12 @@ class Microwave extends DeviceType {
       roomHint: instance.getRoomHint(element),
       attributes: {
         maxTimerLimitSec: 60,
-        pausable: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        pausable: true,
+        supportedCookingModes: [
+          'DEFROST',
+          'MICROWAVE',
+          'WARM',
+        ],
       },
       willReportState: true,
       states: {
@@ -56,18 +59,30 @@ class Microwave extends DeviceType {
         timerPaused: false,
         isRunning: false,
         isPaused: false,
+        currentCookingMode: 'NONE',
+        currentFoodPreset: 'NONE',
+        currentFoodQuantity: 0,
+        currentFoodUnit: 'NO_UNITS',
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addMicrowave',
   icon: 'device:nfc',
   label: 'Microwave',
-  function: (app) => { app._createDevice(Microwave.createDevice()); }
+  function: (app) => {
+    app._createDevice(Microwave.createDevice());
+  },
 })

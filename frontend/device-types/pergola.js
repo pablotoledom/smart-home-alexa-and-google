@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.PERGOLA'
+
 class Pergola extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['patio pergola'],
-      roomHint: 'Patio'
+      roomHint: 'Patio',
     }];
   }
 
@@ -31,44 +33,47 @@ class Pergola extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.PERGOLA',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Pergola`],
       name: `Smart Pergola`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['LEFT', 'RIGHT']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['LEFT', 'RIGHT'],
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openPercent: 0,
-          openDirection: 'LEFT'
+          openDirection: 'LEFT',
         }, {
           openPercent: 0,
-          openDirection: 'RIGHT'
-        }]
+          openDirection: 'RIGHT',
+        }],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addPergola',
   icon: 'maps:layers',
   label: 'Pergola',
-  function: (app) => { app._createDevice(Pergola.createDevice()); }
+  function: (app) => {
+    app._createDevice(Pergola.createDevice());
+  },
 })

@@ -13,13 +13,18 @@
 import { DeviceType } from './device-type';
 
 let instance;
+const LAST_WEEK = new Date();
+LAST_WEEK.setDate(LAST_WEEK.getDate() - 7);
+const LAST_WEEK_SEC = Math.floor(LAST_WEEK.getTime() / 1000)
+
+const type = 'action.devices.types.SECURITYSYSTEM'
 
 class SecuritySystem extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['security panel'],
-      roomHint: 'Hallway'
+      roomHint: 'Hallway',
     }];
   }
 
@@ -31,9 +36,12 @@ class SecuritySystem extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.SECURITYSYSTEM',
+      type,
       traits: [
-        'action.devices.traits.ArmDisarm'
+        'action.devices.traits.ArmDisarm',
+        'action.devices.traits.Reboot',
+        'action.devices.traits.SoftwareUpdate',
+        'action.devices.traits.StatusReport',
       ],
       defaultNames: [`Smart Security System`],
       name: `Smart Security System`,
@@ -45,46 +53,52 @@ class SecuritySystem extends DeviceType {
             level_name: 'L1',
             level_values: [{
               level_synonym: ['home and guarding', 'SL1'],
-              lang: 'en'
+              lang: 'en',
             }, {
               level_synonym: ['zuhause und bewachen', 'SL1'],
-              lang: 'de'
-            }]
+              lang: 'de',
+            }],
           }, {
             level_name: 'L2',
             level_values: [{
               level_synonym: ['away and guarding', 'SL2'],
-              lang: 'en'
+              lang: 'en',
             }, {
               level_synonym: ['weg und bewachen', 'SL2'],
-              lang: 'de'
-            }]
+              lang: 'de',
+            }],
           }],
-          ordered: true
-        }
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+          ordered: true,
+        },
       },
       willReportState: true,
       states: {
         online: true,
         currentArmLevel: 'L1',
-        isArmed: false
+        isArmed: false,
+        // Timestamp state should be in seconds
+        lastSoftwareUpdateUnixTimestampSec: LAST_WEEK_SEC,
+        currentStatusReport: [],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addSecuritySystem',
   icon: 'icons:verified-user',
   label: 'Security System',
-  function: (app) => { app._createDevice(SecuritySystem.createDevice()); }
+  function: (app) => {
+    app._createDevice(SecuritySystem.createDevice());
+  },
 })

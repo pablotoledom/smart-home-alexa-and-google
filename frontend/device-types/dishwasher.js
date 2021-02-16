@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.DISHWASHER'
+
 class Dishwasher extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['dish cleaner'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,7 +33,7 @@ class Dishwasher extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.DISHWASHER',
+      type,
       traits: [
         'action.devices.traits.RunCycle',
         'action.devices.traits.StartStop',
@@ -43,26 +45,38 @@ class Dishwasher extends DeviceType {
       attributes: {
         pausable: true,
       },
+      willReportState: true,
+      states: {
+        online: true,
+        currentRunCycle: [{
+          currentCycle: 'rinse',
+          nextCycle: 'soap',
+          lang: 'en',
+        }],
+        currentTotalRemainingTime: 1212,
+        currentCycleRemainingTime: 301,
+        isRunning: false,
+        isPaused: false,
+      },
+      hwVersion: '3.2',
+      swVersion: '11.4',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-      },
-      hwVersion: '3.2',
-      swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addDishwasher',
   icon: 'maps:restaurant',
   label: 'Dishwasher',
-  function: (app) => { app._createDevice(Dishwasher.createDevice()); }
+  function: (app) => {
+    app._createDevice(Dishwasher.createDevice());
+  },
 })

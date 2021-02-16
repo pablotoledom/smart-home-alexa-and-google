@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.BOILER'
+
 class Boiler extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['my boiler'],
-      roomHint: 'Laundry Room'
+      roomHint: 'Laundry Room',
     }];
   }
 
@@ -31,10 +33,10 @@ class Boiler extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.BOILER',
+      type,
       traits: [
         'action.devices.traits.TemperatureControl',
-        'action.devices.traits.OnOff'
+        'action.devices.traits.OnOff',
       ],
       defaultNames: [`Smart Boiler`],
       name: `Smart Boiler`,
@@ -43,33 +45,36 @@ class Boiler extends DeviceType {
       attributes: {
         temperatureRange: {
           minThresholdCelsius: 50,
-          maxThresholdCelsius: 125
+          maxThresholdCelsius: 125,
         },
-        temperatureUnitForUX: 'C'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        temperatureUnitForUX: 'C',
       },
       willReportState: true,
       states: {
         online: true,
         on: false,
         temperatureSetpointCelsius: 105,
-        temperatureAmbientCelsius: 110
+        temperatureAmbientCelsius: 110,
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addBoiler',
   icon: 'icons:invert-colors',
   label: 'Boiler',
-  function: (app) => { app._createDevice(Boiler.createDevice()); }
+  function: (app) => {
+    app._createDevice(Boiler.createDevice());
+  },
 })

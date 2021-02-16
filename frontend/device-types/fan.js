@@ -14,21 +14,23 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.FAN'
+
 class Fan extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['workshop fan'],
-      roomHint: 'Shed'
+      roomHint: 'Shed',
     }, {
       nicknames: ['kitchen ceiling fan'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['patio fan'],
-      roomHint: 'Patio'
+      roomHint: 'Patio',
     }, {
       nicknames: ['air conditioner'],
-      roomHint: 'Den'
+      roomHint: 'Den',
     }];
   }
 
@@ -40,7 +42,7 @@ class Fan extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.FAN',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.FanSpeed',
@@ -55,35 +57,30 @@ class Fan extends DeviceType {
             speed_name: '0',
             speed_values: [{
               speed_synonym: ['off'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '1',
             speed_values: [{
               speed_synonym: ['low'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '2',
             speed_values: [{
               speed_synonym: ['medium'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             speed_name: '3',
             speed_values: [{
               speed_synonym: ['high'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }],
           ordered: true,
         },
-        reversible: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        reversible: true,
       },
       willReportState: true,
       states: {
@@ -92,15 +89,23 @@ class Fan extends DeviceType {
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addFan',
   icon: 'hardware:toys',
   label: 'Fan',
-  function: (app) => { app._createDevice(Fan.createDevice()); }
+  function: (app) => {
+    app._createDevice(Fan.createDevice());
+  },
 })

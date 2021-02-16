@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.HOOD'
+
 class Hood extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['Range hood'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,11 +33,11 @@ class Hood extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.HOOD',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Toggles',
-        'action.devices.traits.FanSpeed'
+        'action.devices.traits.FanSpeed',
       ],
       defaultNames: [`Smart Hood`],
       name: `Smart Hood`,
@@ -46,10 +48,10 @@ class Hood extends DeviceType {
           name: 'Light',
           name_values: [{
             name_synonym: [
-            'light'
+              'light',
             ],
-            lang: 'en'
-          }]
+            lang: 'en',
+          }],
         }],
         availableFanSpeeds: {
           speeds: [{
@@ -57,29 +59,24 @@ class Hood extends DeviceType {
             speed_values: [{
               speed_synonym: [
                 'low',
-                'slow'
+                'slow',
               ],
-              lang: 'en'
-              }]
-            },
-            {
+              lang: 'en',
+            }],
+          },
+          {
             speed_name: 'High',
             speed_values: [{
               speed_synonym: [
-                'high'
-                ],
-                lang: 'en'
-              }]
-            }
+                'high',
+              ],
+              lang: 'en',
+            }],
+          },
           ],
-          ordered: true
+          ordered: true,
         },
-        reversible: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        reversible: true,
       },
       willReportState: true,
       states: {
@@ -87,15 +84,23 @@ class Hood extends DeviceType {
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addHood',
   icon: 'icons:view-day',
   label: 'Hood',
-  function: (app) => { app._createDevice(Hood.createDevice()); }
+  function: (app) => {
+    app._createDevice(Hood.createDevice());
+  },
 })

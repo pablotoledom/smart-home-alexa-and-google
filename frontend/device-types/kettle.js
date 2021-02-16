@@ -14,18 +14,20 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.KETTLE'
+
 class Kettle extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['little teapot'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['ramen cooker'],
-      roomHint: 'Bedroom'
+      roomHint: 'Bedroom',
     }, {
       nicknames: ['solder station'],
-      roomHint: 'Shed'
+      roomHint: 'Shed',
     }];
   }
 
@@ -37,7 +39,7 @@ class Kettle extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.KETTLE',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.TemperatureControl',
@@ -49,14 +51,9 @@ class Kettle extends DeviceType {
       attributes: {
         temperatureRange: {
           minThresholdCelsius: 0.0,
-          maxThresholdCelsius: 100.0
+          maxThresholdCelsius: 100.0,
         },
-        temperatureUnitForUX: 'C'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        temperatureUnitForUX: 'C',
       },
       willReportState: true,
       states: {
@@ -65,15 +62,23 @@ class Kettle extends DeviceType {
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addKettle',
   icon: 'image:filter-frames',
   label: 'Kettle',
-  function: (app) => { app._createDevice(Kettle.createDevice()); }
+  function: (app) => {
+    app._createDevice(Kettle.createDevice());
+  },
 })

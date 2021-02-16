@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.OUTLET'
+
 class Outlet extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['smart plug'],
-      roomHint: 'Basement'
+      roomHint: 'Basement',
     }, {
       nicknames: ['wall outlet'],
-      roomHint: 'Family Room'
+      roomHint: 'Family Room',
     }];
   }
 
@@ -34,7 +36,7 @@ class Outlet extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.OUTLET',
+      type,
       traits: [
         'action.devices.traits.OnOff',
       ],
@@ -42,27 +44,30 @@ class Outlet extends DeviceType {
       name: `Smart Outlet`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
+      willReportState: true,
+      states: {
+        online: true,
+        on: false,
+      },
+      hwVersion: '1.0.0',
+      swVersion: '2.0.0',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        on: false
-      },
-      hwVersion: '1.0.0',
-      swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addOutlet',
   icon: 'notification:power',
   label: 'Outlet',
-  function: (app) => { app._createDevice(Outlet.createDevice()); }
+  function: (app) => {
+    app._createDevice(Outlet.createDevice());
+  },
 })

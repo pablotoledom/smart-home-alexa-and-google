@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.WINDOW'
+
 class Window extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['sink window'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,36 +33,39 @@ class Window extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.WINDOW',
+      type,
       traits: [
         'action.devices.traits.LockUnlock',
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Window`],
       name: `Smart Window`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
+      willReportState: true,
+      states: {
+        online: true,
+        openPercent: 0,
+      },
+      hwVersion: '3.2',
+      swVersion: '11.4',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        openPercent: 0
-      },
-      hwVersion: '3.2',
-      swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addWindow',
   icon: 'device:wallpaper',
   label: 'Window',
-  function: (app) => { app._createDevice(Window.createDevice()); }
+  function: (app) => {
+    app._createDevice(Window.createDevice());
+  },
 })

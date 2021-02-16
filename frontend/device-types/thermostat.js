@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.THERMOSTAT'
+
 class Thermostat extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['wall thermostat'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['upstairs thermostat'],
-      roomHint: 'hallway'
+      roomHint: 'hallway',
     }];
   }
 
@@ -34,7 +36,7 @@ class Thermostat extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.THERMOSTAT',
+      type,
       traits: [
         'action.devices.traits.TemperatureSetting',
       ],
@@ -44,12 +46,7 @@ class Thermostat extends DeviceType {
       roomHint: instance.getRoomHint(element),
       attributes: {
         availableThermostatModes: 'off,heat,cool,on,heatcool',
-        thermostatTemperatureUnit: 'C'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        thermostatTemperatureUnit: 'C',
       },
       willReportState: true,
       states: {
@@ -59,19 +56,27 @@ class Thermostat extends DeviceType {
         thermostatTemperatureSetpointHigh: 28,
         thermostatTemperatureSetpointLow: 22,
         thermostatTemperatureAmbient: 25.1,
-        thermostatHumidityAmbient: 45.3
+        thermostatHumidityAmbient: 45.3,
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addThermostat',
   icon: 'image:brightness-7',
   label: 'Thermostat',
-  function: (app) => { app._createDevice(Thermostat.createDevice()); }
+  function: (app) => {
+    app._createDevice(Thermostat.createDevice());
+  },
 })

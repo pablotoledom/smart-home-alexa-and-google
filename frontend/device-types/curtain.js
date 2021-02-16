@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.CURTAIN'
+
 class Curtain extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['living room curtain'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }];
   }
 
@@ -31,44 +33,47 @@ class Curtain extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.CURTAIN',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Curtain`],
       name: `Smart Curtain`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['LEFT', 'RIGHT']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['LEFT', 'RIGHT'],
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openPercent: 0,
-          openDirection: 'LEFT'
+          openDirection: 'LEFT',
         }, {
           openPercent: 0,
-          openDirection: 'RIGHT'
-        }]
+          openDirection: 'RIGHT',
+        }],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
-  identifier: '_curtain',
+  type,
+  identifier: '_addCurtain',
   icon: 'icons:flag',
   label: 'Curtain',
-  function: (app) => { app._createDevice(Curtain.createDevice()); }
+  function: (app) => {
+    app._createDevice(Curtain.createDevice());
+  },
 })

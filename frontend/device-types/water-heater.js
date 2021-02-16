@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.WATERHEATER'
+
 class WaterHeater extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['basement water heater'],
-      roomHint: 'Basement'
+      roomHint: 'Basement',
     }];
   }
 
@@ -31,10 +33,10 @@ class WaterHeater extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.WATERHEATER',
+      type,
       traits: [
         'action.devices.traits.OnOff',
-        'action.devices.traits.TemperatureControl'
+        'action.devices.traits.TemperatureControl',
       ],
       defaultNames: [`Smart Water Heater`],
       name: `Smart Water Heater`,
@@ -43,11 +45,10 @@ class WaterHeater extends DeviceType {
       attributes: {
         temperatureRange: {
           minThresholdCelsius: 10,
-          maxThresholdCelsius: 50
+          maxThresholdCelsius: 50,
         },
-        temperatureUnitForUX: 'F'
+        temperatureUnitForUX: 'F',
       },
-      hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
@@ -58,15 +59,23 @@ class WaterHeater extends DeviceType {
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addWaterHeater',
   icon: 'maps:local-drink',
   label: 'Water Heater',
-  function: (app) => { app._createDevice(WaterHeater.createDevice()); }
+  function: (app) => {
+    app._createDevice(WaterHeater.createDevice());
+  },
 })

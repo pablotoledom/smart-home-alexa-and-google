@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.DOOR'
+
 class Door extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['Back door'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,44 +33,47 @@ class Door extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.DOOR',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Door`],
       name: `Smart Door`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['IN', 'OUT']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['IN', 'OUT'],
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openDirection: 'IN',
-          openPercent: 0
+          openPercent: 0,
         }, {
           openDirection: 'OUT',
-          openPercent: 0
-        }]
+          openPercent: 0,
+        }],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addDoor',
   icon: 'icons:open-in-new',
   label: 'Door',
-  function: (app) => { app._createDevice(Door.createDevice()); }
+  function: (app) => {
+    app._createDevice(Door.createDevice());
+  },
 })

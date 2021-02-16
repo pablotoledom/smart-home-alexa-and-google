@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.WASHER'
+
 class Washer extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['washing machine'],
-      roomHint: 'Laundry Room'
+      roomHint: 'Laundry Room',
     }, {
       nicknames: ['acme washer'],
-      roomHint: 'Laundry Room'
+      roomHint: 'Laundry Room',
     }];
   }
 
@@ -34,7 +36,7 @@ class Washer extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.WASHER',
+      type,
       traits: [
         'action.devices.traits.RunCycle',
         'action.devices.traits.Modes',
@@ -50,34 +52,29 @@ class Washer extends DeviceType {
           name: 'load',
           name_values: [{
             name_synonym: ['load', 'size'],
-            lang: 'en'
+            lang: 'en',
           }],
           settings: [{
             setting_name: 'small',
             setting_values: [{
               setting_synonym: ['small'],
-              lang: 'en'
-            }]
+              lang: 'en',
+            }],
           }, {
             setting_name: 'large',
             setting_values: [{
               setting_synonym: ['large'],
-              lang: 'en'
-            }]
-          }]
+              lang: 'en',
+            }],
+          }],
         }],
         availableToggles: [{
           name: 'quiet',
           name_values: [{
             name_synonym: ['quiet', 'silent'],
-            lang: 'en'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'en',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -89,24 +86,32 @@ class Washer extends DeviceType {
           quiet: false,
         },
         currentRunCycle: [{
-          currentCycle: "rinse",
-          nextCycle: "spin",
-          lang: "en"
+          currentCycle: 'rinse',
+          nextCycle: 'spin',
+          lang: 'en',
         }],
         currentTotalRemainingTime: 1212,
         currentCycleRemainingTime: 301,
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addWasher',
   icon: 'maps:local-laundry-service',
   label: 'Washer',
-  function: (app) => { app._createDevice(Washer.createDevice()); }
+  function: (app) => {
+    app._createDevice(Washer.createDevice());
+  },
 })

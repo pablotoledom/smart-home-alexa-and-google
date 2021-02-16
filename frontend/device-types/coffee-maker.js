@@ -14,21 +14,23 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.COFFEE_MAKER'
+
 class CoffeeMaker extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['little coffee pot'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['coffee maker'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }, {
       nicknames: ['my coffee cup'],
-      roomHint: 'Office'
+      roomHint: 'Office',
     }, {
-        nicknames: ['desktop espresso machine'],
-      roomHint: 'Office'
+      nicknames: ['desktop espresso machine'],
+      roomHint: 'Office',
     }];
   }
 
@@ -40,8 +42,9 @@ class CoffeeMaker extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.COFFEE_MAKER',
+      type,
       traits: [
+        'action.devices.traits.Cook',
         'action.devices.traits.OnOff',
         'action.devices.traits.TemperatureControl',
       ],
@@ -52,31 +55,49 @@ class CoffeeMaker extends DeviceType {
       attributes: {
         temperatureRange: {
           minThresholdCelsius: 0.0,
-          maxThresholdCelsius: 100.0
+          maxThresholdCelsius: 100.0,
         },
-        temperatureUnitForUX: 'C'
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        temperatureUnitForUX: 'C',
+        supportedCookingModes: [
+          'BREW',
+        ],
+        foodPresets: [{
+          food_preset_name: 'coffee',
+          supported_units: ['NO_UNITS', 'CUPS'],
+          food_synonyms: [{
+            synonym: ['coffee'],
+            lang: 'en',
+          }],
+        }],
       },
       willReportState: true,
       states: {
         online: true,
         temperatureSetpointCelsius: 30,
+        currentCookingMode: 'NONE',
+        currentFoodPreset: 'NONE',
+        currentFoodQuantity: 0,
+        currentFoodUnit: 'NO_UNITS',
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addCoffeeMaker',
   icon: 'maps:local-cafe',
   label: 'Coffee Maker',
-  function: (app) => { app._createDevice(CoffeeMaker.createDevice()); }
+  function: (app) => {
+    app._createDevice(CoffeeMaker.createDevice());
+  },
 })

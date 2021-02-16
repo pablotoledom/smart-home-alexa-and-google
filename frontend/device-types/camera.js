@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.CAMERA'
+
 class Camera extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['backyard camera'],
-      roomHint: 'Backyard'
+      roomHint: 'Backyard',
     }, {
       nicknames: ['security camera'],
-      roomHint: 'Entryway'
+      roomHint: 'Entryway',
     }];
   }
 
@@ -34,7 +36,7 @@ class Camera extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.CAMERA',
+      type,
       traits: [
         'action.devices.traits.CameraStream',
       ],
@@ -45,15 +47,10 @@ class Camera extends DeviceType {
       attributes: {
         cameraStreamSupportedProtocols: [
           'hls',
-          'dash'
+          'dash',
         ],
         cameraStreamNeedAuthToken: false,
         cameraStreamNeedDrmEncryption: false,
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
       },
       willReportState: true,
       states: {
@@ -61,15 +58,23 @@ class Camera extends DeviceType {
       },
       hwVersion: '1.0.0',
       swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addCamera',
   icon: 'image:camera-alt',
   label: 'Camera',
-  function: (app) => { app._createDevice(Camera.createDevice()); }
+  function: (app) => {
+    app._createDevice(Camera.createDevice());
+  },
 })

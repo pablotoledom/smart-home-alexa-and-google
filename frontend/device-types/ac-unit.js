@@ -14,18 +14,20 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.AC_UNIT'
+
 class AcUnit extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['ac unit'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }, {
       nicknames: ['temperature control system'],
-      roomHint: 'Master Bedroom'
+      roomHint: 'Master Bedroom',
     }, {
       nicknames: ['hvac'],
-      roomHint: 'Basement'
+      roomHint: 'Basement',
     }]
   }
 
@@ -37,61 +39,90 @@ class AcUnit extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.AC_UNIT',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Modes',
         'action.devices.traits.TemperatureSetting',
+        'action.devices.traits.FanSpeed',
       ],
       defaultNames: [`Smart AC Unit`],
       name: `Smart AC Unit`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        availableThermostatModes: 'off,cool',
+        availableThermostatModes: ['heat','cool','fan-only','auto','dry'],
         temperatureTemperatureUnit: 'C',
-        availableModes: [{
-          name: 'mode',
-          name_values: [{
-            name_synonym: ['mode'],
-            lang: 'en'
-          }],
-          settings: [{
-            setting_name: 'auto',
-            setting_values: [{
-              setting_synonym: ['auto'],
-              lang: 'en'
-            }]
-          }, {
-            setting_name: 'manual',
-            setting_values: [{
-              setting_synonym: ['manual'],
-              lang: 'en'
-            }]
-          }]
-        }]
+        availableFanSpeeds: {
+          speeds: [
+            {
+              speed_name: "low_key",
+              speed_values: [
+                {
+                  "speed_synonym": [
+                    "low",
+                    "speed 1"
+                  ],
+                  "lang": "en"
+                }
+              ]
+            },
+            {
+              speed_name: "medium_key",
+              speed_values: [
+                {
+                  "speed_synonym": [
+                    "medium",
+                    "speed 2"
+                  ],
+                  "lang": "en"
+                }
+              ]
+            },
+            {
+              speed_name: "high_key",
+              speed_values: [
+                {
+                  "speed_synonym": [
+                    "high",
+                    "speed 3"
+                  ],
+                  "lang": "en"
+                }
+              ]
+            }
+          ],
+          "ordered": true
+        },
       },
+      willReportState: true,
+      states: {
+        online: true,
+        currentModeSettings: {
+          mode: 'auto',
+        },
+        on: false,
+        thermostatTemperatureSetpoint: 20,
+      },
+      hwVersion: '1.0.0',
+      swVersion: '2.0.0',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-        thermostatTemperatureSetpoint: 20,
-      },
-      hwVersion: '1.0.0',
-      swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addAcUnit',
   icon: 'places:ac-unit',
   label: 'AC Unit',
-  function: (app) => { app._createDevice(AcUnit.createDevice()); }
+  function: (app) => {
+    app._createDevice(AcUnit.createDevice());
+  },
 })

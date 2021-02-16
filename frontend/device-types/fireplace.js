@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.FIREPLACE'
+
 class Fireplace extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['Downstairs Fireplace'],
-      roomHint: 'Living Room'
+      roomHint: 'Living Room',
     }, {
       nicknames: ['firepit'],
-      roomHint: 'Garden'
+      roomHint: 'Garden',
     }];
   }
 
@@ -34,7 +36,7 @@ class Fireplace extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.FIREPLACE',
+      type,
       traits: [
         'action.devices.traits.OnOff',
         'action.devices.traits.Toggles',
@@ -51,14 +53,9 @@ class Fireplace extends DeviceType {
             lang: 'en',
           }, {
             name_synonym: ['Hintergrundbeleuchtung', 'Stimmungslicht'],
-            lang: 'de'
-          }]
-        }]
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+            lang: 'de',
+          }],
+        }],
       },
       willReportState: true,
       states: {
@@ -66,15 +63,23 @@ class Fireplace extends DeviceType {
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addFireplace',
   icon: 'social:whatshot',
   label: 'Fireplace',
-  function: (app) => { app._createDevice(Fireplace.createDevice()); }
+  function: (app) => {
+    app._createDevice(Fireplace.createDevice());
+  },
 })

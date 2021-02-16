@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.SHOWER'
+
 class Shower extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['guest shower'],
-      roomHint: 'Bathroom'
+      roomHint: 'Bathroom',
     }];
   }
 
@@ -31,11 +33,11 @@ class Shower extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.SHOWER',
+      type,
       traits: [
         'action.devices.traits.StartStop',
         'action.devices.traits.OnOff',
-        'action.devices.traits.Modes'
+        'action.devices.traits.Modes',
       ],
       defaultNames: [`Smart Shower`],
       name: `Smart Shower`,
@@ -48,27 +50,22 @@ class Shower extends DeviceType {
             name_synonym: [
               'monsoon',
               'heavy rain',
-              'waterfall'
+              'waterfall',
             ],
-            lang: 'en'
+            lang: 'en',
           }],
           settings: [{
             setting_name: 'trickle',
             setting_values: [{
               setting_synonym: [
-                "trickle",
-                "gentle"
+                'trickle',
+                'gentle',
               ],
-              lang: 'en'
-            }]
-          }]
+              lang: 'en',
+            }],
+          }],
         }],
-        ordered: true
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        ordered: true,
       },
       willReportState: true,
       states: {
@@ -77,20 +74,28 @@ class Shower extends DeviceType {
         isRunning: false,
         isPaused: false,
         currentModeSettings: {
-          monsoon: 'trickle'
-        }
+          monsoon: 'trickle',
+        },
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addShower',
   icon: 'maps:local-car-wash',
   label: 'Shower',
-  function: (app) => { app._createDevice(Shower.createDevice()); }
+  function: (app) => {
+    app._createDevice(Shower.createDevice());
+  },
 })

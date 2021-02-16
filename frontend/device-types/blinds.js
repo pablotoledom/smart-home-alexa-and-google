@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.BLINDS'
+
 class Blinds extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['sink window'],
-      roomHint: 'Kitchen'
+      roomHint: 'Kitchen',
     }];
   }
 
@@ -31,44 +33,55 @@ class Blinds extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.BLINDS',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
+        'action.devices.traits.Rotation',
       ],
       defaultNames: [`Smart Blinds`],
       name: `Smart Blinds`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['LEFT', 'RIGHT']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['LEFT', 'RIGHT'],
+        supportsDegrees: true,
+        supportsPercent: false,
+        rotationDegreesRange: {
+          rotationDegreesMin: 0,
+          rotationDegreesMax: 360,
+        },
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openPercent: 0,
-          openDirection: 'LEFT'
+          openDirection: 'LEFT',
         }, {
           openPercent: 0,
-          openDirection: 'RIGHT'
-        }]
+          openDirection: 'RIGHT',
+        }],
+        rotationDegrees: 0,
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addBlinds',
   icon: 'icons:view-week',
   label: 'Blinds',
-  function: (app) => { app._createDevice(Blinds.createDevice()); }
+  function: (app) => {
+    app._createDevice(Blinds.createDevice());
+  },
 })

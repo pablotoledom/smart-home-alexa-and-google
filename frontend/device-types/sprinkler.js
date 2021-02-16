@@ -14,15 +14,17 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.SPRINKLER'
+
 class Sprinkler extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['front yard sprinklers'],
-      roomHint: 'Front Yard'
+      roomHint: 'Front Yard',
     }, {
       nicknames: ['garage faucet'],
-      roomHint: 'Garage'
+      roomHint: 'Garage',
     }];
   }
 
@@ -34,7 +36,7 @@ class Sprinkler extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.SPRINKLER',
+      type,
       traits: [
         'action.devices.traits.StartStop',
       ],
@@ -43,28 +45,33 @@ class Sprinkler extends DeviceType {
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        pausable: false
+        pausable: false,
       },
+      willReportState: true,
+      states: {
+        online: true,
+        isRunning: false,
+        isPaused: false,
+      },
+      hwVersion: '1.0.0',
+      swVersion: '2.0.0',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
       hubExecution: false,
       hubInformation: {
         hubId: '',
         channel: '',
       },
-      willReportState: true,
-      states: {
-        online: true,
-      },
-      hwVersion: '1.0.0',
-      swVersion: '2.0.0',
-      model: 'L',
-      manufacturer: 'L',
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addSprinkler',
   icon: 'image:filter-vintage',
   label: 'Sprinkler',
-  function: (app) => { app._createDevice(Sprinkler.createDevice()); }
+  function: (app) => {
+    app._createDevice(Sprinkler.createDevice());
+  },
 })

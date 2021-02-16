@@ -14,12 +14,14 @@ import { DeviceType } from './device-type';
 
 let instance;
 
+const type = 'action.devices.types.AWNING'
+
 class Awning extends DeviceType {
   constructor() {
     super()
     this.valuesArray = [{
       nicknames: ['back window awning'],
-      roomHint: 'Patio'
+      roomHint: 'Patio',
     }];
   }
 
@@ -31,44 +33,47 @@ class Awning extends DeviceType {
 
     return {
       id: instance.genUuid(),
-      type: 'action.devices.types.AWNING',
+      type,
       traits: [
-        'action.devices.traits.OpenClose'
+        'action.devices.traits.OpenClose',
       ],
       defaultNames: [`Smart Awning`],
       name: `Smart Awning`,
       nicknames: instance.getNicknames(element),
       roomHint: instance.getRoomHint(element),
       attributes: {
-        openDirection: ['UP', 'DOWN']
-      },
-      hubExecution: false,
-      hubInformation: {
-        hubId: '',
-        channel: '',
+        openDirection: ['UP', 'DOWN'],
       },
       willReportState: true,
       states: {
         online: true,
         openState: [{
           openPercent: 0,
-          openDirection: 'UP'
+          openDirection: 'UP',
         }, {
           openPercent: 0,
-          openDirection: 'DOWN'
-        }]
+          openDirection: 'DOWN',
+        }],
       },
       hwVersion: '3.2',
       swVersion: '11.4',
-      model: '442',
-      manufacturer: 'sirius',
+      model: 'SH 1.0.0',
+      manufacturer: 'SmartHome A&G',
+      hubExecution: false,
+      hubInformation: {
+        hubId: '',
+        channel: '',
+      },
     };
   }
 }
 
 window.deviceTypes.push({
+  type,
   identifier: '_addAwning',
   icon: 'maps:store-mall-directory',
   label: 'Awning',
-  function: (app) => { app._createDevice(Awning.createDevice()); }
+  function: (app) => {
+    app._createDevice(Awning.createDevice());
+  },
 })
