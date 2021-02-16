@@ -87,6 +87,7 @@ var loadExampleData = function() {
     "host" : "http://192.168.1.11",
     "username" : "myUserName",
     "apiKey" : "yourApiEspurnaKey",
+		"useQueue": false,
 	});
 
 	hub.save(function(err, hub) {

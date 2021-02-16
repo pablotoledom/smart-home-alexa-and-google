@@ -10,24 +10,13 @@ async function handleDiscovery(request) {
     return devices;
 }
 
-
-async function handlePowerControl(request) {
+async function handleCommonEvent(request) {
     // try to call smarthome api
     const result = await callAPIsmarthome(request, request.directive.endpoint.scope.token);
     if (result.statusCode === 200) {
         console.log('Show result PowerControl', result);
     }
     
-    return result;
-}
-
-async function handleReportState(request) {
-    // try to call smarthome api
-    const result = await callAPIsmarthome(request, request.directive.endpoint.scope.token);
-    if (result.statusCode === 200) {
-        console.log('Show result ReportState', result);
-    }
-
     return result;
 }
 
@@ -82,14 +71,8 @@ exports.handler = async function (request, context) {
         console.log("DEBUG: ", "Discover request",  JSON.stringify(request));
         return await handleDiscovery(request, context);
     }
-    else if (request.directive.header.namespace === 'Alexa.PowerController') {
-        if (request.directive.header.name === 'TurnOn' || request.directive.header.name === 'TurnOff') {
-            console.log("DEBUG: ", "TurnOn or TurnOff request ", JSON.stringify(request));
-            return await handlePowerControl(request);
-        }
-    }
-    else if (request.directive.header.namespace === 'Alexa' && request.directive.header.name === 'ReportState') {
-        console.log("DEBUG: ", "ReportState request ",  JSON.stringify(request));
-        return await handleReportState(request);
+    else if (request.directive.header.namespace && request.directive.header.name) {
+        console.log("DEBUG: ", "CommonEvent request ",  JSON.stringify(request));
+        return await handleCommonEvent(request);
     }
 };
