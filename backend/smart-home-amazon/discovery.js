@@ -1,5 +1,5 @@
 const model = require('../../database/model.js');
-const deviceTranslator = require('./device-translator.js');
+const deviceTranslator = require('./utilities/device-translator.js');
 
 const dicovery = async (req, res) => {
   const body = req.body;

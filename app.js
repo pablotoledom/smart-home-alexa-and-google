@@ -15,10 +15,12 @@ const express = require('express'),
 	fs = require('fs');
 	
 const app = express();
-const deviceDispatcher = require('./backend/services/device-dispatcher.js');
 
 global.myQueue = [];
+global.repeatDispatch = 2; // Default = 1
+
 	
+
 // ********* SSL CERTIFICATES *********
 let httpsServer;
 if (process.env.ENVIROMENT === 'PRODUCTION') {
@@ -55,16 +57,17 @@ app.oauth = new OAuth2Server({
 });
 
 // ********* QUEUE DEVICES EXECUTION LOOP *********
-const queue = async () => {	
+const queue = async () => {
 	if (global.myQueue.length > 0) {
-		const executionItem = global.myQueue.shift();
-		await deviceDispatcher(executionItem.scope, model.getHub);
+		const executionFunction = global.myQueue.shift();
+		executionFunction();
+
 		console.log('Remaining items in queue: ', global.myQueue.length);
 	}
 
 	setTimeout(() => {
 		queue();
-	}, 500);
+	}, 1000);
 };
 
 queue();

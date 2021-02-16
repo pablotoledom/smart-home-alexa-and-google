@@ -62,18 +62,20 @@ const update = async (req, res) => {
 		controlType,
 		host,
 		apiKey,
+		useQueue,
 	} = req.body;
 
 	if (res.locals.oauth.token && res.locals.oauth.token.user.username) {
     const updatePayload = {
-      name,
-      technologyType,
-      controlType,
-			host,
-			apiKey,
-		};
+		name,
+		technologyType,
+		useQueue,
+		host,
+		apiKey,
+		controlType,
+	};
 
-		await model.updateHub(res.locals.oauth.token.user.username, req.params.id, updatePayload)
+	await model.updateHub(res.locals.oauth.token.user.username, req.params.id, updatePayload)
 		.then(res.json({ code: 0, text: "Hub updated" }))
 		.catch((err) => {
 			console.log('error on update profile');

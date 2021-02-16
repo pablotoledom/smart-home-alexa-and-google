@@ -1,4 +1,4 @@
-const model = require('../../database/model.js');
+const model = require('../../../database/model.js');
 
 const PowerController = async (req, res) => {
   const body = req.body;
@@ -10,6 +10,7 @@ const PowerController = async (req, res) => {
 
   await model.updateDevice(userId, deviceId, {
     'states.on': deviceOn,
+    'states.lastCommand': 'OnOff',
   });
 
   if (body.directive.header.name === "TurnOn") {

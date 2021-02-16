@@ -10,7 +10,10 @@ const onQuery = async (body, headers, server) => {
 		await model.getDevice(userId, device.id)
 		.exec()
 		.then((MyDeviceStates) => {
-			deviceStates[device.id] = MyDeviceStates;	
+			deviceStates[device.id] = {
+				status: "SUCCESS",
+				...MyDeviceStates.states
+			};
 		})	
 		.catch((err) => {
 			console.log('error on searching devices');
