@@ -128,6 +128,7 @@ class MyHubs extends PolymerElement {
       controlType: '',
       host: '',
       apiKey: '',
+      useQueue: '',
     };
     
     if (!!accessToken) {

@@ -29,6 +29,7 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/av-icons.js';
 import '@polymer/iron-icons/communication-icons.js';
 import '@polymer/iron-icons/device-icons.js';
+import '@polymer/iron-icons/editor-icons.js';
 import '@polymer/iron-icons/image-icons.js';
 import '@polymer/iron-icons/hardware-icons.js';
 import '@polymer/iron-icons/maps-icons.js';

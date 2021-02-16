@@ -56,10 +56,6 @@ export class SmartHub extends PolymerElement {
           width: 100%;
         }
 
-        paper-slider {
-          width: 268px;
-        }
-
         .pin {
           margin-left: 0;
         }
@@ -93,10 +89,6 @@ export class SmartHub extends PolymerElement {
         #button-bar {
           margin-bottom: 8px;
           text-align: right;
-        }
-
-        #brightness, #temperatureSetpointCelsius, #thermostatTemperatureSetpoint {
-          display: none;
         }
 
         .disabled {
@@ -136,7 +128,9 @@ export class SmartHub extends PolymerElement {
         <section>  
           <paper-input id="host" label="Host IP/Domain" value="{{hub.host}}"></paper-input>
         </section>
-        
+        <section>  
+        <paper-toggle-button id="useQueue" checked="{{device.useQueue}}">Use Queue</paper-toggle-button>
+        </section>
         <paper-toast id="successMsg" text="Hub has been updated successfully." class="success-message"></paper-toast>
         <paper-toast id="errorMsg" text="An error occurred while trying to update." class="error-message"></paper-toast>
         <paper-toast id="errorSessionMsg" duration="0" text="Your session has expired">
@@ -179,6 +173,7 @@ export class SmartHub extends PolymerElement {
       this.$.name.addEventListener('blur', this._execChange.bind(this));
       this.$.technologyType.addEventListener('click', this._execChange.bind(this));
       this.$.controlType.addEventListener('click', this._execChange.bind(this));
+      this.$.useQueue.addEventListener('click', this._execChange.bind(this));
       this.$.host.addEventListener('keydown', this._handleChange.bind(this));
       this.$.host.addEventListener('blur', this._execChange.bind(this));
       this.$.apiKey.addEventListener('keydown', this._handleChange.bind(this));
@@ -207,6 +202,7 @@ export class SmartHub extends PolymerElement {
       name,
       technologyType,
       controlType,
+      useQueue,
       host,
       apiKey,
     } = this.hub;
@@ -221,6 +217,7 @@ export class SmartHub extends PolymerElement {
         name,
         technologyType,
         controlType,
+        useQueue,
         host,
         apiKey,
       }),

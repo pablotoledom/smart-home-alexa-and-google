@@ -18,43 +18,78 @@ import {
 
 import './smart-device.js';
 import './device-types/ac-unit.js';
+import './device-types/air-cooler.js';
 import './device-types/air-freshener.js';
 import './device-types/air-purifier.js';
+import './device-types/audio-visual-receiver.js';
 import './device-types/awning.js';
+import './device-types/bathtub.js';
+import './device-types/bed.js';
+import './device-types/blender.js';
 import './device-types/blinds.js';
 import './device-types/boiler.js';
 import './device-types/camera.js';
+import './device-types/charger.js';
+import './device-types/closet.js';
 import './device-types/coffee-maker.js';
+import './device-types/cooktop.js';
 import './device-types/curtain.js';
+import './device-types/dehumidifier.js';
+import './device-types/dehydrator.js';
 import './device-types/dishwasher.js';
 import './device-types/door.js';
+import './device-types/drawer.js';
 import './device-types/dryer.js';
 import './device-types/fan.js';
+import './device-types/faucet.js';
 import './device-types/fireplace.js';
+import './device-types/freezer.js';
+import './device-types/fryer.js';
 import './device-types/garage.js';
 import './device-types/gate.js';
+import './device-types/grill.js';
 import './device-types/heater.js';
 import './device-types/hood.js';
+import './device-types/humidifier.js';
 import './device-types/kettle.js';
 import './device-types/lock.js';
 import './device-types/microwave.js';
+import './device-types/mop.js';
+import './device-types/mower.js';
+import './device-types/multicooker.js';
 import './device-types/light.js';
+import './device-types/network.js';
 import './device-types/outlet.js';
 import './device-types/oven.js';
 import './device-types/pergola.js';
+import './device-types/petfeeder.js';
+import './device-types/pressurecooker.js';
+import './device-types/radiator.js';
 import './device-types/refrigerator.js';
+import './device-types/remote.js';
+import './device-types/router.js';
 import './device-types/scene.js';
 import './device-types/security-system.js';
+import './device-types/settop.js';
 import './device-types/shower.js';
 import './device-types/shutter.js';
+import './device-types/soundbar.js';
+import './device-types/sousvide.js';
+import './device-types/speaker.js';
 import './device-types/sprinkler.js';
+import './device-types/standmixer';
+import './device-types/streaming-box';
+import './device-types/streaming-soundbar';
+import './device-types/streaming-stick';
 import './device-types/switch.js';
 import './device-types/thermostat.js';
+import './device-types/tv.js';
 import './device-types/vacuum.js';
 import './device-types/valve.js';
 import './device-types/washer.js';
 import './device-types/water-heater.js';
 import './device-types/window.js';
+import './device-types/yogurtmaker.js';
 import './device-types/importer.js';
 import './shared-styles.js';
 
@@ -219,6 +254,14 @@ class MyDevices extends PolymerElement {
 
         var body = document.querySelector('body');
         dom(body).appendChild(this.$.modals);
+
+        window.iconMap = (() => {
+          const map = {}
+          window.deviceTypes.forEach((device) => {
+            map[device.type] = device.iconFunction || device.icon
+          })
+          return map
+        })()
     }
 
     /**
