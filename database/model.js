@@ -178,15 +178,7 @@ var updateDevice = (username, id, newData) => {
 				multi: true,
 				new: true,
 			}).then((document) => {
-				global.myQueue.push({
-					action: 'update',
-					date: new Date(),
-					owner: {
-						username,
-						id,
-					},
-					scope: document,
-				});
+				deviceDispatcher(document, newData, getHub);
 				return document;
 			})
 			.catch(document => document);

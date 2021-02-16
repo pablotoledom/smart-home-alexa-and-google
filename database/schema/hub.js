@@ -6,4 +6,5 @@ module.exports = {
   controlType: String,
   host: String,
   apiKey: String,
+  useQueue: Boolean,
 };
